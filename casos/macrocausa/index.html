@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macrocausa mediatica — Estrado AI</title>
+<meta name="description" content="Caso real anonimizado: macrocausa con mas de 100 imputados, 87.000 folios y 6 meses de copilotaje dedicado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+<style>
+.case-detail{max-width:740px;margin:0 auto;padding:4rem 2rem 5rem}
+.case-meta{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:2.5rem;justify-content:center}
+.meta-pill{font-size:12px;letter-spacing:1px;color:var(--slate);background:var(--bone);padding:6px 16px;border-radius:20px}
+.case-detail h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:500;color:var(--navy);margin-bottom:1rem;margin-top:3rem}
+.case-detail h2:first-of-type{margin-top:0}
+.case-detail p{font-size:15px;color:var(--steel);line-height:1.9;margin-bottom:1.25rem}
+.case-detail blockquote{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-style:italic;color:var(--charcoal);border-left:2px solid var(--gold);padding-left:20px;margin:2rem 0;line-height:1.6}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:2.5rem 0}
+.stat{text-align:center;padding:1.5rem;background:var(--bone);border-radius:8px}
+.stat .val{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:600;color:var(--gold);line-height:1}
+.stat .lab{font-size:11px;color:var(--slate);margin-top:6px;line-height:1.4}
+.timeline-v{position:relative;padding-left:32px;margin:2.5rem 0}
+.timeline-v::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:var(--pearl)}
+.tl-item{position:relative;margin-bottom:2rem}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-24px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--gold);z-index:1}
+.tl-item .tl-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:4px}
+.tl-item h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.tl-item p{font-size:14px;color:var(--steel);line-height:1.7;margin-bottom:0}
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:2rem 0}
+.dlv{padding:1.5rem;border:1px solid var(--pearl);border-radius:8px;transition:border-color 0.3s}
+.dlv:hover{border-color:rgba(176,144,88,0.3)}
+.dlv h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.dlv p{font-size:13px;color:var(--steel);line-height:1.6;margin-bottom:0}
+.back-link{display:inline-block;font-size:13px;letter-spacing:1px;color:var(--gold);margin-bottom:2rem}
+.back-link:hover{color:var(--gold-light)}
+@media(max-width:768px){.stats-row{grid-template-columns:1fr 1fr}.deliverables{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 220 50" height="28"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#FFF" stroke-width="1.2"/><line x1="15" y1="14" x2="15" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><circle cx="32" cy="14" r="1.8" fill="#FFF"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="600" letter-spacing="3" fill="#FFF">ESTRADO</text><line x1="182" y1="16" x2="182" y2="34" stroke="#FFF" stroke-width="0.5" opacity="0.35"/><text x="190" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="300" letter-spacing="2" fill="#FFF">AI</text></svg>
+  </a>
+  <div class="nav-links">
+    <a href="/servicio">Servicio</a>
+    <a href="/casos" style="color:#fff">Casos</a>
+    <a href="/sobre-mi">Sobre mi</a>
+    <a href="/agendar" class="nav-cta">Agendar conversacion</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <p class="section-label">Caso real anonimizado</p>
+  <h1>Macrocausa mediatica nacional</h1>
+  <p>Mas de 100 imputados. 87.000 folios. 6 meses de copilotaje dedicado.</p>
+</header>
+
+<div class="case-detail">
+
+  <a href="/casos" class="back-link">&larr; Volver a todos los casos</a>
+
+  <div class="case-meta">
+    <span class="meta-pill">Derecho penal economico</span>
+    <span class="meta-pill">Fase de instruccion</span>
+    <span class="meta-pill">6 meses de servicio</span>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="val">11</div><div class="lab">anos de pena<br>pedida</div></div>
+    <div class="stat"><div class="val">50M&euro;</div><div class="lab">en multas<br>solicitadas</div></div>
+    <div class="stat"><div class="val">87.000</div><div class="lab">folios del<br>sumario</div></div>
+    <div class="stat"><div class="val">72h</div><div class="lab">para organizar<br>todo</div></div>
+  </div>
+
+  <h2>El reto</h2>
+  <p>Una macrocausa mediatica de ambito nacional con mas de 100 imputados. El sumario acumulaba 87.000 folios entre atestados policiales, declaraciones de investigados y testigos, informes periciales contables, documentacion bancaria y mercantil, y resoluciones judiciales. El equipo de defensa necesitaba organizar, cruzar y comprender toda esa documentacion en un plazo operativo.</p>
+  <p>La complejidad no era solo el volumen: cada imputado tenia un perfil distinto de exposicion, con conexiones cruzadas entre sociedades, cargos y movimientos de fondos que el sumario no organizaba de forma clara. Identificar que afectaba a nuestro cliente y que no era, en si mismo, un trabajo de semanas.</p>
+
+  <h2>Mi trabajo</h2>
+
+  <div class="timeline-v">
+    <div class="tl-item">
+      <div class="tl-label">Dia 1 &mdash; 3</div>
+      <h4>Ingesta y organizacion completa</h4>
+      <p>Procese los 87.000 folios, clasificando cada documento por tipo, fecha, partes implicadas y relevancia procesal. El resultado: un repositorio indexado con busqueda instantanea por cualquier criterio.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Semana 1</div>
+      <h4>Dashboard interactivo operativo</h4>
+      <p>Entregue al letrado un panel interactivo con el expediente completo organizado: linea temporal de hechos, mapa de partes implicadas, estado de cada pieza de instruccion y alertas de plazos procesales.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Mes 1 &mdash; 2</div>
+      <h4>Mapa relacional y matriz de pruebas</h4>
+      <p>Construi un mapa relacional interactivo de los +100 imputados que permitia visualizar conexiones entre personas fisicas, sociedades y movimientos de fondos. Ademas, elabore una matriz de pruebas cruzadas que identificaba que pruebas afectaban a cada imputado y en que sentido.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Mes 2 &mdash; 6</div>
+      <h4>Borradores de escritos en instruccion</h4>
+      <p>Redacte 4 borradores de escritos procesales durante la fase de instruccion. Cada borrador incluia citas jurisprudenciales verificadas, estructura argumentativa solida y tono procesal adecuado, listo para la revision y firma del letrado.</p>
+    </div>
+  </div>
+
+  <h2>Entregables</h2>
+
+  <div class="deliverables">
+    <div class="dlv">
+      <h4>Dashboard 360</h4>
+      <p>Panel interactivo con el expediente completo, busqueda por terminos, partes y fechas, accesible desde cualquier dispositivo.</p>
+    </div>
+    <div class="dlv">
+      <h4>Mapa relacional</h4>
+      <p>Visualizacion interactiva de conexiones entre +100 imputados, sociedades y flujos de fondos.</p>
+    </div>
+    <div class="dlv">
+      <h4>Matriz de pruebas</h4>
+      <p>Cruce sistematico de pruebas por imputado, tipo de evidencia y sentido de la implicacion.</p>
+    </div>
+    <div class="dlv">
+      <h4>4 escritos procesales</h4>
+      <p>Borradores en fase de instruccion con jurisprudencia verificada y estructura argumentativa completa.</p>
+    </div>
+  </div>
+
+  <blockquote>"En 72 horas tenia organizado lo que habria llevado semanas. Eso cambio la forma de trabajar este caso."</blockquote>
+
+  <h2>Resultado</h2>
+  <p>El letrado paso de enfrentarse a un sumario inabarcable a trabajar sobre un sistema organizado que le permitia localizar cualquier dato en segundos. Los borradores de escritos fueron aprobados con ajustes menores, y el mapa relacional se convirtio en la herramienta central de la estrategia de defensa.</p>
+  <p>El copilotaje continuo durante los 6 meses de instruccion permitio que el letrado se concentrara en la estrategia y la defensa material mientras yo me encargaba del procesamiento, la organizacion y los borradores.</p>
+
+  <div style="text-align:center;margin-top:3rem">
+    <a href="/agendar" class="cta-btn">Agendar una primera conversacion</a>
+  </div>
+
+</div>
+
+<div class="cta-band">
+  <p class="section-label">Siguiente paso</p>
+  <h2>Tu caso podria ser el proximo.</h2>
+  <p>30 minutos para entender tu expediente y evaluar si puedo aportar valor real.</p>
+  <a href="/agendar" class="cta-btn">Agendar mi primera conversacion</a>
+  <p class="plazas"><strong>7</strong> de 10 plazas disponibles</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <svg viewBox="0 0 220 50" height="22"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#9AABB8" stroke-width="1"/><line x1="15" y1="14" x2="15" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><circle cx="32" cy="14" r="1.5" fill="#9AABB8"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="500" letter-spacing="3" fill="#9AABB8">ESTRADO</text><line x1="170" y1="16" x2="170" y2="34" stroke="#9AABB8" stroke-width="0.5" opacity="0.4"/><text x="178" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="2" fill="#9AABB8">AI</text></svg>
+  </div>
+  <p><a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a></p>
+  <div class="footer-links"><a href="/privacidad">Politica de privacidad</a><a href="/aviso-legal">Aviso legal</a></div>
+  <p class="personal">Un servicio personal. No una startup.</p>
+</footer>
+
+</body>
+</html>

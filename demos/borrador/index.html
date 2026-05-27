@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Borradores de escritos procesales con IA | Estrado AI — Demo interactiva</title>
+<meta name="description" content="Escritos de cuestiones previas, recursos y calificaciones generados con inteligencia artificial. Estructura procesal, tono adecuado. Demo de Estrado AI.">
+<link rel="canonical" href="https://estradoia.com/demos/borrador">
+<meta name="hreflang" content="es">
+<meta property="og:title" content="Borradores de escritos procesales con IA | Estrado AI — Demo interactiva">
+<meta property="og:description" content="Escritos de cuestiones previas, recursos y calificaciones generados con inteligencia artificial. Estructura procesal, tono adecuado. Demo de Estrado AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://estradoia.com/demos/borrador">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Estrado AI">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Estrado AI", "item": "https://estradoia.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Borradores de escritos procesales con IA", "item": "https://estradoia.com/demos/borrador"}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0A1A2F;--gold:#B09058;--bg:#F8F7F4;--card:#FFFFFF;--text:#1a1a1a;--muted:#6B7280;--border:#E5E7EB}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.demo-banner{background:var(--gold);color:var(--navy);text-align:center;padding:8px;font-size:13px;font-weight:500;letter-spacing:0.5px}
+header{background:var(--navy);color:#fff;padding:24px 32px}
+header h1{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600}
+header h1 span{color:var(--gold)}
+header p{font-size:14px;opacity:0.7;margin-top:4px}
+main{max-width:900px;margin:0 auto;padding:24px}
+.info-bar{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.info-chip{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:13px}
+.info-chip strong{color:var(--navy)}
+.doc-frame{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);overflow:hidden}
+.doc-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#FAFAFA;border-bottom:1px solid var(--border)}
+.doc-toolbar .filename{font-size:13px;font-weight:500;color:var(--navy)}
+.doc-toolbar .badges{display:flex;gap:8px}
+.badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.badge-draft{background:#FEF3C7;color:#92400E}
+.badge-ai{background:#EEF2FF;color:#4338CA}
+.doc-content{padding:48px 56px;font-family:'Times New Roman',serif;font-size:15px;line-height:1.8;color:#1a1a1a}
+.doc-content h4{text-align:center;font-size:16px;margin-bottom:24px}
+.doc-content .intro{text-indent:2em;text-align:justify;margin-bottom:12px}
+.doc-content .section-title{font-weight:bold;font-size:14px;margin-top:28px;margin-bottom:12px;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px}
+.doc-content .numbered{text-indent:2em;text-align:justify;margin-bottom:12px}
+.doc-content .suplico{text-align:center;font-weight:bold;margin:20px 0}
+.doc-content .firma{margin-top:40px;display:flex;justify-content:space-between;font-size:14px}
+.highlight{background:rgba(176,144,88,0.1);border-left:3px solid var(--gold);padding:2px 8px;margin:0 -8px}
+.comment-marker{position:relative;cursor:pointer}
+.comment-marker::after{content:'';position:absolute;top:-2px;right:-12px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.sidebar-note{position:absolute;right:-220px;width:200px;background:#FFFDF7;border:1px solid var(--gold);border-radius:8px;padding:10px;font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);line-height:1.4;display:none}
+.anno{background:rgba(176,144,88,0.12);padding:1px 3px;border-radius:2px;cursor:help}
+.anno-box{display:none;margin:8px 0 12px 2em;background:#FFFDF7;border:1px solid var(--gold);border-radius:8px;padding:12px;font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);line-height:1.5}
+.anno-box strong{color:var(--navy);font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.anno.active{background:rgba(176,144,88,0.25)}
+.anno.active+.anno-box{display:block}
+.table-wrapper{margin:16px 0;overflow-x:auto}
+.doc-content table{width:100%;border-collapse:collapse;font-size:13px}
+.doc-content th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-weight:500;font-size:12px}
+.doc-content td{padding:8px 10px;border-bottom:1px solid var(--border)}
+.doc-content tr:nth-child(even){background:#F9FAFB}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.feature{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.feature .icon{font-size:28px;margin-bottom:8px}
+.feature .feat-title{font-weight:600;font-size:14px;color:var(--navy)}
+.feature .feat-desc{font-size:12px;color:var(--muted);margin-top:4px}
+footer{text-align:center;padding:32px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:32px}
+footer a{color:var(--gold);text-decoration:none}
+.watermark{position:fixed;bottom:16px;right:16px;background:var(--navy);color:var(--gold);padding:6px 14px;border-radius:8px;font-size:11px;font-weight:500;z-index:100;opacity:0.9}
+@media(max-width:768px){.doc-content{padding:24px}.features{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO INTERACTIVA — Caso ficticio generado con fines ilustrativos</div>
+<nav style="padding:8px 32px;font-size:13px;background:var(--bg);border-bottom:1px solid var(--border)" aria-label="Breadcrumb"><a href="/" style="color:var(--gold);text-decoration:none">← Volver a Estrado AI</a></nav>
+<header>
+<h1>Borrador de <span>escrito</span></h1>
+<p>Escrito de cuestiones previas — Operacion Meridiano — PA 15/2025</p>
+</header>
+
+<main>
+<div class="info-bar">
+<div class="info-chip"><strong>Tipo:</strong> Cuestiones previas (art. 786.2 LECrim)</div>
+<div class="info-chip"><strong>Extension:</strong> 4 paginas + tabla comparativa</div>
+<div class="info-chip"><strong>Citas:</strong> 3 STS + 3 STC + 1 STEDH</div>
+<div class="info-chip"><strong>Estado:</strong> Borrador v2 — pendiente revision</div>
+</div>
+
+<div class="features">
+<div class="feature">
+<div class="icon" style="color:var(--navy)">&#9878;</div>
+<div class="feat-title">Jurisprudencia verificada</div>
+<div class="feat-desc">Cada cita del TS, TC y TEDH ha sido contrastada con la base de datos CENDOJ</div>
+</div>
+<div class="feature">
+<div class="icon" style="color:var(--gold)">&#9997;</div>
+<div class="feat-title">Tono procesal adecuado</div>
+<div class="feat-desc">Lenguaje tecnico respetuoso, sin sarcasmo ni agresividad</div>
+</div>
+<div class="feature">
+<div class="icon" style="color:#059669">&#10004;</div>
+<div class="feat-title">Tu revisas y firmas</div>
+<div class="feat-desc">El borrador es tuyo: ajustas lo que quieras antes de presentar</div>
+</div>
+</div>
+
+<div class="doc-frame">
+<div class="doc-toolbar">
+<span class="filename">ESCRITO_CUESTIONES_PREVIAS_NAVARRO_v2.docx</span>
+<div class="badges">
+<span class="badge badge-draft">Borrador v2</span>
+<span class="badge badge-ai">Generado con Estrado AI</span>
+</div>
+</div>
+<div class="doc-content">
+<h4>A LA SECCION CUARTA DE LA SALA DE LO PENAL<br>DE LA AUDIENCIA NACIONAL</h4>
+
+<p class="intro">DONA LAURA MARTINEZ SOLER, Procuradora de los Tribunales (colegiada n.o 1.204), en nombre y representacion de <strong>D. CARLOS NAVARRO MENDOZA</strong>, bajo la direccion letrada de Estrado AI, en el Rollo de Sala PA 15/2025 (origen: JCI n.o 2, DP 45/2022), ante la Sala comparece y, como mejor proceda en Derecho,</p>
+
+<p class="suplico">DICE:</p>
+
+<p class="intro">Que, al amparo de los articulos 786.2 y 793.2 de la Ley de Enjuiciamiento Criminal, y de los derechos fundamentales consagrados en los articulos 24.1 y 24.2 de la Constitucion, esta defensa plantea las siguientes <strong>CUESTIONES PREVIAS</strong> para su resolucion al inicio de las sesiones del juicio oral:</p>
+
+<div class="section-title">I. Prescripcion del delito B): falsedad en documento mercantil</div>
+
+<p class="numbered"><strong>Primero.</strong> El delito de falsedad en documento mercantil del articulo 392 del Codigo Penal, en relacion con el articulo 390.1.2.o del mismo texto legal, tiene asignada una pena de prision de seis meses a tres anos y multa de seis a doce meses. Conforme al <span class="anno" onclick="this.classList.toggle('active')">articulo 131.1 CP</span>, los delitos con pena maxima de prision de tres anos prescriben a los cinco anos.</p>
+<div class="anno-box"><strong>Nota Estrado AI:</strong> El art. 131.1 CP establece plazos de prescripcion escalonados. Para pena maxima de 3 anos: prescripcion a los 5 anos. Verificado en CENDOJ. STS 467/2018 confirma autonomia de computo.</div>
+
+<p class="numbered"><strong>Segundo.</strong> La ultima factura supuestamente falsificada data del <span class="anno" onclick="this.classList.toggle('active')">14 de noviembre de 2021</span>, segun consta en el Anexo III del escrito de acusacion de la Fiscalia (folio 1.247 de las actuaciones). Las diligencias se incoaron el 15 de marzo de 2022, sin que conste interrupcion del plazo prescriptivo con anterioridad a dicha fecha.</p>
+<div class="anno-box"><strong>Nota Estrado AI:</strong> Fecha extraida del Anexo III, folio 1.247. Verificar con el expediente fisico. Si la fecha correcta es anterior, el argumento se refuerza. Si es posterior a marzo de 2017, recalcular el plazo.</div>
+
+<p class="numbered"><strong>Tercero.</strong> Esta defensa invoca la doctrina del Tribunal Supremo (<span class="anno" onclick="this.classList.toggle('active')">STS 467/2018, de 15 de octubre</span>, Ponente: Excmo. Sr. D. Antonio del Moral Garcia), segun la cual la prescripcion opera de forma autonoma para cada delito, debiendo computarse individualmente los plazos sin comunicacion entre figuras delictivas conexas.</p>
+<div class="anno-box"><strong>Nota Estrado AI:</strong> STS 467/2018 — verificada en CENDOJ (ECLI:ES:TS:2018:3547). Ponente: Antonio del Moral Garcia. Ratio decidendi: autonomia prescriptiva por delito. Refuerzo: STS 213/2020 (misma linea).</div>
+
+<div style="margin:20px 0;padding:12px;background:#F0FDF4;border-radius:8px;border:1px solid #059669;font-family:'Inter',sans-serif;font-size:13px">
+<strong style="color:#059669">&#10004; Argumento fuerte (85% confianza):</strong> La prescripcion del delito B) es el eje mas solido del escrito. El plazo ha transcurrido con claridad y la jurisprudencia es univoca.
+</div>
+
+<div class="section-title">II. Vulneracion del principio ne bis in idem respecto del delito A)</div>
+
+<p class="numbered"><strong>Cuarto.</strong> La AEAT incoo procedimiento sancionador contra TechVerde Solutions S.L. (expediente 2023/SA/28079/0412), que concluyo con resolucion firme de 18 de julio de 2024 imponiendo sancion de 1.840.000 euros por infraccion tributaria muy grave (art. 191.1 LGT), en relacion con los mismos ejercicios fiscales 2019-2022.</p>
+
+<p class="numbered"><strong>Quinto.</strong> D. Navarro fue declarado responsable subsidiario del pago de dicha sancion mediante <span class="anno" onclick="this.classList.toggle('active')">resolucion del TEAC de 3 de febrero de 2025</span>. Ya ha sido sancionado personalmente por los mismos hechos.</p>
+<div class="anno-box"><strong>Nota Estrado AI:</strong> Resolucion TEAC — solicitar copia certificada al cliente. Es la pieza clave del argumento ne bis in idem. Sin ella, el argumento pierde fuerza probatoria ante la Sala.</div>
+
+<div style="margin:20px 0;padding:12px;background:#FFFBEB;border-radius:8px;border:1px solid #D97706;font-family:'Inter',sans-serif;font-size:13px">
+<strong style="color:#D97706">&#9888; Argumento de riesgo medio (55% confianza):</strong> El ne bis in idem en supuestos mixtos (administrativo + penal) es discutido tras la STEDH A y B c. Noruega (2016). La Sala podria considerar que no hay identidad de fundamento si aprecia un desvalor penal adicional.
+</div>
+
+<p style="text-align:center;margin:24px 0;font-size:13px;color:var(--muted)">[ ... secciones III y IV omitidas en esta preview ... ]</p>
+
+<div class="section-title">Cuadro comparativo: posicion de los acusados</div>
+
+<div class="table-wrapper">
+<table>
+<thead><tr><th></th><th>M.A. Cortes (CEO)</th><th>C. Navarro (CFO)</th><th>Diferencia</th></tr></thead>
+<tbody>
+<tr><td><strong>Rol</strong></td><td>Ideador y decisor</td><td>Ejecutor material</td><td>Sin dominio funcional</td></tr>
+<tr><td><strong>Sociedades</strong></td><td>Beneficiario efectivo</td><td>Ninguna vinculacion</td><td>0% participacion</td></tr>
+<tr><td><strong>Beneficio</strong></td><td>1.870.000 EUR</td><td>0 EUR</td><td>Sin enriquecimiento</td></tr>
+<tr><td><strong>Pena</strong></td><td>2 anos (suspendidos)</td><td>7 anos solicitados</td><td style="color:#DC2626;font-weight:600">Desproporcion x3,5</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="suplico">SUPLICA:</p>
+<p class="numbered"><strong>Primero.</strong> Que se tenga por presentado el presente escrito y por formuladas las cuestiones previas.</p>
+<p class="numbered"><strong>Segundo.</strong> Que se declare la prescripcion del delito B) [...]</p>
+<p class="numbered"><strong>Tercero.</strong> Que se resuelva sobre la concurrencia de ne bis in idem [...]</p>
+<p class="numbered"><strong>Cuarto.</strong> Que se requiera a las acusaciones para individualizar el titulo de participacion [...]</p>
+
+<div class="firma">
+<div>Fdo.: D. Rene Dechamps<br><span style="font-size:12px;color:var(--muted)">Letrado — Estrado AI</span></div>
+<div style="text-align:right">Fdo.: Dna. Laura Martinez Soler<br><span style="font-size:12px;color:var(--muted)">Procuradora col. n.o 1.204</span></div>
+</div>
+</div>
+</div>
+
+<div style="margin-top:24px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;text-align:center">
+<p style="font-size:15px;font-weight:500;color:var(--navy);margin-bottom:8px">El documento completo esta disponible en formato .docx</p>
+<p style="font-size:13px;color:var(--muted);margin-bottom:16px">4 paginas, 3 cuestiones previas, tabla comparativa, 7 citas jurisprudenciales verificadas</p>
+<a href="/demos/borrador/ESCRITO_CUESTIONES_PREVIAS_DEMO.docx" style="display:inline-block;background:var(--navy);color:var(--gold);padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:14px">Descargar borrador (.docx)</a>
+</div>
+</main>
+
+<footer>
+<div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy);margin-bottom:8px">Estrado <span style="color:var(--gold)">AI</span></div>
+Caso ficticio con fines demostrativos. Ningun dato corresponde a personas o procedimientos reales.<br>
+<a href="/">Volver a estradoia.com</a>
+</footer>
+
+<div class="watermark">Estrado AI — Demo</div>
+</body>
+</html>

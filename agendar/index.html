@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar conversacion — Estrado AI</title>
+<meta name="description" content="Solicita una primera conversacion gratuita de 30 minutos para evaluar tu caso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+<style>
+.booking{max-width:640px;margin:0 auto;padding:3rem 2rem 5rem}
+.booking h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:500;color:var(--navy);margin-bottom:1.5rem;text-align:center}
+.booking>p{font-size:15px;color:var(--steel);line-height:1.8;text-align:center;margin-bottom:2rem}
+.what-expect{background:var(--bone);border-radius:8px;padding:2rem;margin-bottom:2.5rem}
+.what-expect h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:500;color:var(--navy);margin-bottom:12px}
+.we-list{list-style:none;padding:0}
+.we-list li{font-size:14px;color:var(--steel);padding:8px 0;padding-left:20px;position:relative;line-height:1.6;border-bottom:1px solid var(--pearl)}
+.we-list li:last-child{border:none}
+.we-list li::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.cal-embed{background:var(--bone);border-radius:8px;padding:3rem;text-align:center;margin-bottom:2rem;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border:1px dashed var(--pearl)}
+.cal-embed p{font-size:14px;color:var(--slate)}
+.cal-embed .placeholder{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;color:var(--slate);font-style:italic}
+.alt-contact{text-align:center;margin-top:2rem;padding:2rem;border-top:1px solid var(--pearl)}
+.alt-contact p{font-size:14px;color:var(--slate);margin-bottom:8px}
+.alt-contact a{font-size:15px;font-weight:500;color:var(--navy)}
+.plazas-box{text-align:center;background:var(--gold-bg);border:1px solid rgba(176,144,88,0.2);border-radius:8px;padding:1.5rem;margin-bottom:2rem}
+.plazas-box .num{font-family:'Cormorant Garamond',Georgia,serif;font-size:42px;font-weight:600;color:var(--gold);line-height:1}
+.plazas-box .lab{font-size:13px;color:var(--steel);margin-top:6px}
+.guarantee{text-align:center;font-size:13px;color:var(--slate);font-style:italic;margin-top:1rem;line-height:1.6}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 220 50" height="28"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#FFF" stroke-width="1.2"/><line x1="15" y1="14" x2="15" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><circle cx="32" cy="14" r="1.8" fill="#FFF"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="600" letter-spacing="3" fill="#FFF">ESTRADO</text><line x1="182" y1="16" x2="182" y2="34" stroke="#FFF" stroke-width="0.5" opacity="0.35"/><text x="190" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="300" letter-spacing="2" fill="#FFF">AI</text></svg>
+  </a>
+  <div class="nav-links">
+    <a href="/servicio">Servicio</a>
+    <a href="/casos">Casos</a>
+    <a href="/sobre-mi">Sobre mi</a>
+    <a href="/agendar" class="nav-cta" style="border-color:var(--gold);color:var(--gold)">Agendar conversacion</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <p class="section-label">Acceso anticipado</p>
+  <h1>Primera conversacion gratuita</h1>
+  <p>30 minutos para entender tu caso y evaluar si puedo aportar valor real a tu defensa.</p>
+</header>
+
+<div class="booking">
+
+  <div class="plazas-box">
+    <div class="num">7<span style="font-size:18px;color:var(--steel);font-weight:400"> / 10</span></div>
+    <div class="lab">plazas disponibles para acceso anticipado</div>
+  </div>
+
+  <div class="what-expect">
+    <h3>Que esperar en los 30 minutos</h3>
+    <ul class="we-list">
+      <li>Me cuentas brevemente tu caso — tipo de causa, fase procesal, complejidad</li>
+      <li>Evaluo si el servicio puede aportar valor real a tu expediente concreto</li>
+      <li>Te explico como funciona el onboarding y el ordenador dedicado</li>
+      <li>Si hay encaje, en 48 horas tienes tu primer dashboard operativo</li>
+      <li>Si no hay encaje, te lo digo con transparencia — sin perder tu tiempo ni el mio</li>
+    </ul>
+  </div>
+
+  <!-- AQUI VA EL WIDGET DE CAL.COM -->
+  <div class="cal-embed" id="cal-widget">
+    <p class="placeholder">Widget de Cal.com</p>
+    <p>Aqui se integrara el calendario de reservas.<br>Mientras tanto, puedes escribirme directamente:</p>
+    <a href="mailto:contacto@estradoia.com?subject=Primera%20conversaci%C3%B3n%20%E2%80%94%20Estrado%20AI&body=Hola%20Ren%C3%A9%2C%0A%0ASoy%20%5Bnombre%5D%2C%20abogado%20penalista%20en%20%5Bdespacho%2Fciudad%5D.%0A%0AMe%20interesa%20una%20primera%20conversaci%C3%B3n%20sobre%20el%20servicio%20Estrado%20AI.%0A%0ATengo%20disponibilidad%20para%20hablar%20esta%20semana.%0A%0AUn%20saludo." class="cta-btn">Escribirme por email</a>
+  </div>
+  <!-- Para activar Cal.com, sustituir el div anterior por:
+  <script>
+    (function(C,A,L){...})(window,"https://cal.com","estradoai/primera-conversacion");
+  </script>
+  -->
+
+  <div class="alt-contact">
+    <p>Si prefieres contacto directo:</p>
+    <a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a>
+  </div>
+
+  <p class="guarantee">Si no te convence, te quedas con todo el trabajo realizado durante el mes de prueba. Sin facturas, sin compromisos, sin letra pequena.</p>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <svg viewBox="0 0 220 50" height="22"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#9AABB8" stroke-width="1"/><line x1="15" y1="14" x2="15" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><circle cx="32" cy="14" r="1.5" fill="#9AABB8"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="500" letter-spacing="3" fill="#9AABB8">ESTRADO</text><line x1="170" y1="16" x2="170" y2="34" stroke="#9AABB8" stroke-width="0.5" opacity="0.4"/><text x="178" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="2" fill="#9AABB8">AI</text></svg>
+  </div>
+  <p><a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a></p>
+  <div class="footer-links"><a href="/privacidad">Politica de privacidad</a><a href="/aviso-legal">Aviso legal</a></div>
+  <p class="personal">Un servicio personal. No una startup.</p>
+</footer>
+
+</body>
+</html>

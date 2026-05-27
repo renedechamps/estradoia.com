@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulador de interrogatorio penal con IA | Estrado AI — Preparación de vista oral</title>
+<meta name="description" content="Anticipe preguntas de la Fiscalía, detecte trampas y prepare contrainterrogatorio con inteligencia artificial. Demo de Estrado AI.">
+<link rel="canonical" href="https://estradoia.com/demos/interrogatorio">
+<meta name="hreflang" content="es">
+<meta property="og:title" content="Simulador de interrogatorio penal con IA | Estrado AI — Preparación de vista oral">
+<meta property="og:description" content="Anticipe preguntas de la Fiscalía, detecte trampas y prepare contrainterrogatorio con inteligencia artificial. Demo de Estrado AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://estradoia.com/demos/interrogatorio">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Estrado AI">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Estrado AI", "item": "https://estradoia.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Simulador de interrogatorio penal con IA", "item": "https://estradoia.com/demos/interrogatorio"}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1A2F;--gold:#B09058;--gold-light:#C4A46D;--white:#FAFAF8;--bg:#F4F1EB;--text:#2C2C2C;--muted:#6B6B6B;--green:#2D8A5E;--red:#C0392B;--amber:#D4881C;--blue:#2E75B6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.top-bar{background:var(--navy);padding:12px 0;text-align:center}
+.top-bar a{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:18px;text-decoration:none;font-weight:600;letter-spacing:1px}
+.demo-banner{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);text-align:center;padding:10px;font-size:12px;font-weight:500;letter-spacing:.5px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#162A45 100%);padding:40px 24px 32px;text-align:center}
+.hero h1{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:32px;font-weight:600;margin-bottom:8px}
+.hero p{color:rgba(255,255,255,.6);font-size:14px}
+.container{max-width:960px;margin:0 auto;padding:24px}
+.profile-card{background:var(--white);border-radius:10px;padding:24px;margin-bottom:24px;border:1px solid rgba(0,0,0,.06);display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600}
+.profile-info h3{font-size:18px;color:var(--navy);margin-bottom:2px}
+.profile-info .role{font-size:13px;color:var(--muted)}
+.profile-info .tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.profile-tag{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(10,26,47,.06);color:var(--navy);font-weight:500}
+.profile-stats{text-align:right}
+.profile-stats div{margin-bottom:4px}
+.profile-stats .ps-val{font-size:18px;font-weight:600;color:var(--navy)}
+.profile-stats .ps-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid rgba(0,0,0,.06);padding-bottom:0}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--muted);font-family:'Inter',sans-serif;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .3s}
+.tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+.tab:hover{color:var(--navy)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.question-card{background:var(--white);border-radius:8px;padding:18px;margin-bottom:10px;border:1px solid rgba(0,0,0,.06);cursor:pointer;transition:all .3s}
+.question-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.question-card.expanded{border-color:var(--gold)}
+.q-header{display:flex;justify-content:space-between;align-items:center}
+.q-number{font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px}
+.q-text{font-size:14px;font-weight:500;color:var(--navy)}
+.q-risk{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;white-space:nowrap}
+.risk-high{background:#FDEDED;color:var(--red)}
+.risk-medium{background:#FFF3E0;color:var(--amber)}
+.risk-low{background:#E8F5E9;color:var(--green)}
+.q-answer{margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,.06);display:none;animation:fadeIn .3s ease}
+.question-card.expanded .q-answer{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.strategy-box{background:rgba(45,138,94,.06);border-radius:6px;padding:12px;margin-bottom:8px;border-left:3px solid var(--green)}
+.strategy-box h5{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:6px}
+.strategy-box p{font-size:13px;color:var(--text)}
+.trap-box{background:rgba(192,57,43,.06);border-radius:6px;padding:12px;border-left:3px solid var(--red)}
+.trap-box h5{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:6px}
+.trap-box p{font-size:13px;color:var(--text)}
+.counter-card{background:var(--white);border-radius:8px;padding:18px;margin-bottom:10px;border:1px solid rgba(0,0,0,.06)}
+.counter-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.counter-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.counter-title{font-size:14px;font-weight:500;color:var(--navy)}
+.counter-body{font-size:13px;color:var(--text);padding-left:36px}
+.counter-body .cite{font-size:12px;color:var(--blue);margin-top:6px;font-style:italic}
+.trap-main{background:var(--white);border-radius:8px;padding:18px;margin-bottom:10px;border-left:4px solid var(--red);border-right:1px solid rgba(0,0,0,.06);border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+.trap-title{font-size:14px;font-weight:600;color:var(--red);margin-bottom:6px}
+.trap-desc{font-size:13px;color:var(--text);margin-bottom:8px}
+.trap-defense{font-size:12px;color:var(--green);background:rgba(45,138,94,.06);padding:8px 12px;border-radius:6px}
+.trap-defense strong{color:var(--green)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+.prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.prep-card{background:var(--white);border-radius:8px;padding:16px;border:1px solid rgba(0,0,0,.06)}
+.prep-card h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.prep-card ul{list-style:none;padding:0}
+.prep-card li{font-size:12px;color:var(--text);padding:4px 0;padding-left:16px;position:relative}
+.prep-card li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:12px}
+footer a{color:var(--gold);text-decoration:none}
+@media(max-width:600px){.profile-card{grid-template-columns:1fr}.profile-stats{text-align:left;display:flex;gap:16px}.prep-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO INTERACTIVA &mdash; Caso ficticio &ldquo;Operaci&oacute;n Meridiano&rdquo;</div>
+<nav style="padding:8px 24px;font-size:13px;background:var(--bg);border-bottom:1px solid rgba(0,0,0,.06)" aria-label="Breadcrumb"><a href="/" style="color:var(--gold);text-decoration:none">← Volver a Estrado AI</a></nav>
+<div class="top-bar"><a href="/">ESTRADO AI</a></div>
+<div class="hero">
+<h1>Simulador de Interrogatorio</h1>
+<p>Anticipa preguntas de la Fiscal&iacute;a, prepara l&iacute;neas defensivas y evita trampas</p>
+</div>
+<div class="container">
+<div class="profile-card">
+<div class="avatar">CN</div>
+<div class="profile-info">
+<h3>Carlos Navarro Mendoza</h3>
+<div class="role">CFO &mdash; Grupo Meridiano S.L. &bull; Acusado</div>
+<div class="tags">
+<span class="profile-tag">Fraude fiscal art. 305.1 bis</span>
+<span class="profile-tag">Falsedad documental art. 392</span>
+<span class="profile-tag">PA 15/2025</span>
+</div>
+</div>
+<div class="profile-stats">
+<div><span class="ps-val">12</span><br><span class="ps-lbl">Preguntas previstas</span></div>
+<div><span class="ps-val">5</span><br><span class="ps-lbl">Trampas detectadas</span></div>
+</div>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="showTab('preguntas',this)">Preguntas Fiscal&iacute;a</button>
+<button class="tab" onclick="showTab('contra',this)">Contrainterrogatorio</button>
+<button class="tab" onclick="showTab('trampas',this)">Trampas</button>
+<button class="tab" onclick="showTab('prep',this)">Preparaci&oacute;n</button>
+</div>
+<div class="tab-content active" id="tab-preguntas"></div>
+<div class="tab-content" id="tab-contra"></div>
+<div class="tab-content" id="tab-trampas"></div>
+<div class="tab-content" id="tab-prep">
+<div class="section-title">Gu&iacute;a de preparaci&oacute;n</div>
+<div class="prep-grid">
+<div class="prep-card">
+<h4>Antes de la vista</h4>
+<ul>
+<li>Repasar cronolog&iacute;a de operaciones 2018-2022 con el cliente</li>
+<li>Preparar respuestas cortas y directas para las 12 preguntas</li>
+<li>Ensayar control emocional ante preguntas provocativas</li>
+<li>Revisar documentaci&oacute;n contable aportada como prueba</li>
+<li>Confirmar con perito los puntos t&eacute;cnicos sobre facturaci&oacute;n</li>
+</ul>
+</div>
+<div class="prep-card">
+<h4>Durante el interrogatorio</h4>
+<ul>
+<li>Respuestas breves: s&iacute;/no + una frase explicativa m&aacute;ximo</li>
+<li>No adivinar cifras exactas &mdash; &ldquo;no recuerdo con precisi&oacute;n&rdquo;</li>
+<li>Nunca contradecir lo declarado en fase de instrucci&oacute;n</li>
+<li>Evitar entrar en valoraciones jur&iacute;dicas o t&eacute;cnicas contables</li>
+<li>Mirar al tribunal, no al fiscal, al responder</li>
+</ul>
+</div>
+<div class="prep-card">
+<h4>Cl&aacute;usulas de seguridad</h4>
+<ul>
+<li>&ldquo;Me acojo a mi derecho a no declarar sobre ese extremo&rdquo;</li>
+<li>&ldquo;Eso queda fuera de mis funciones como CFO&rdquo;</li>
+<li>&ldquo;Necesitar&iacute;a consultar la documentaci&oacute;n para ser preciso&rdquo;</li>
+<li>&ldquo;Esa pregunta ya fue respondida en mi declaraci&oacute;n instructora&rdquo;</li>
+</ul>
+</div>
+<div class="prep-card">
+<h4>Se&ntilde;ales de peligro</h4>
+<ul>
+<li>Fiscal repite la misma pregunta con distinta formulaci&oacute;n</li>
+<li>Preguntas sobre relaciones personales con el CEO</li>
+<li>Referencias a documentos que no est&aacute;n en el sumario</li>
+<li>Fiscal cita declaraciones de coimputados sin contexto</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer><a href="/">Estrado AI</a> &mdash; Inteligencia Artificial para la Defensa Penal<br>Ejemplo demostrativo con datos ficticios</footer>
+<script>
+const preguntas=[
+{num:1,text:"¿Era usted consciente de que las facturas emitidas por Servicios Levante S.L. no correspondían a servicios efectivamente prestados?",risk:"high",strategy:"Negar conocimiento directo. Señalar que la validación de proveedores correspondía al departamento de compras, no al CFO. Apoyarse en el organigrama funcional de la empresa.",trap:"Intentará establecer conocimiento directo de la falsedad. No admitir haber visto ni revisado facturas individuales de ese proveedor.",cite:"STS 345/2022: 'El mero cargo de CFO no implica conocimiento de cada transacción individual'"},
+{num:2,text:"¿Quién autorizaba los pagos a los proveedores que ahora se identifican como sociedades instrumentales?",risk:"high",strategy:"Describir el proceso formal de aprobación: orden de compra → validación departamental → conformidad contable → pago. Enfatizar que la cadena tenía múltiples puntos de control.",trap:"Busca que identifiques al CEO como cómplice o que asumas responsabilidad exclusiva. Mantener respuesta en el proceso, no en personas.",cite:"Art. 31 bis CP: responsabilidad penal de personas jurídicas"},
+{num:3,text:"¿Puede explicar por qué la contabilidad refleja servicios de consultoría por 2.3M€ sin entregables documentados?",risk:"high",strategy:"Señalar que los servicios de consultoría no siempre generan entregables tangibles (asesoría verbal, análisis de mercado). Indicar que la documentación de soporte estaba en manos del departamento que contrató el servicio.",trap:"Quiere que admitas que no había contraprestación real. No valorar si los servicios eran reales o no — eso es materia pericial.",cite:"Pericial contable: los importes están dentro de mercado para servicios de esa naturaleza"},
+{num:4,text:"¿Mantenía usted comunicación directa con los administradores de las sociedades instrumentales?",risk:"medium",strategy:"Negar comunicación directa. El CFO se comunica con departamentos internos, no con proveedores directamente. Si hay emails, contextualizarlos como comunicación operativa estándar.",trap:"Cualquier contacto directo se usará para argumentar connivencia. Si existieron comunicaciones, fueron puramente administrativas.",cite:""},
+{num:5,text:"¿Por qué no alertó al consejo de administración sobre las irregularidades contables que ahora se investigan?",risk:"high",strategy:"Rechazar la premisa. En el momento de los hechos no existían 'irregularidades' aparentes — la contabilidad fue auditada y aprobada. La calificación de irregularidad es a posteriori.",trap:"Pregunta trampa clásica: asume que sabías que había irregularidades. No aceptar nunca la premisa implícita.",cite:"STS 678/2021: 'No puede exigirse denuncia de hechos que solo retrospectivamente se califican como delictivos'"},
+{num:6,text:"¿Recibió usted algún beneficio personal, directo o indirecto, de las operaciones investigadas?",risk:"medium",strategy:"Negación rotunda. El salario y bonus del acusado estaban fijados por contrato y aprobados por el consejo. No existía remuneración variable vinculada a los proveedores investigados.",trap:"Busca ánimo de lucro personal para agravar. Si hubo bonus por resultados, desvincularlos completamente de las operaciones investigadas.",cite:"Art. 305 CP: el beneficio fiscal es de la persona jurídica, no del CFO"},
+{num:7,text:"¿Supervisó usted personalmente las declaraciones tributarias de los ejercicios 2019 a 2022?",risk:"medium",strategy:"Distinguir entre supervisión general (sí, como CFO) y elaboración/verificación individual (no, eso lo hacía el departamento fiscal con asesor externo). Enfatizar la delegación con control.",trap:"Si dices que sí supervisabas, eres responsable directo. Si dices que no, eras negligente. La respuesta es: supervisión de marco general, no de cada línea.",cite:""},
+{num:8,text:"¿Conocía usted la existencia del acuerdo verbal entre el CEO y los administradores de Servicios Levante?",risk:"high",strategy:"Negar cualquier conocimiento de acuerdos verbales. Los acuerdos con proveedores se formalizaban por escrito a través del departamento jurídico. Si el CEO tenía acuerdos privados, el CFO no tenía por qué conocerlos.",trap:"Intenta vincular al acusado con la trama del CEO. Mantener distancia clara: roles diferenciados y compartimentos funcionales.",cite:"STS 234/2023: 'La participación en el delito requiere conocimiento efectivo, no meramente posicional'"},
+{num:9,text:"¿Cómo explica que su firma aparezca en tres de las facturas cuestionadas?",risk:"medium",strategy:"Explicar que la firma del CFO en facturas era un trámite de conformidad contable (que los importes cuadraban con el presupuesto), no una certificación de la realidad del servicio. Diferenciar 'conforme contable' de 'conforme material'.",trap:"La firma física es la prueba más directa de vinculación. Pero firmar la conformidad contable ≠ conocer la falsedad.",cite:"AP Madrid, Secc. 23: 'La firma de conformidad presupuestaria no equivale a participación en la falsedad material'"},
+{num:10,text:"¿Puede explicar las transferencias de 450.000€ a la cuenta en Portugal?",risk:"low",strategy:"Referirse a la documentación bancaria ya aportada. Las transferencias correspondían a pagos por servicios de consultoría internacional, con retención fiscal aplicada y declarados en modelo 349.",trap:"Busca que improvises explicaciones sobre movimientos bancarios complejos. Nunca dar cifras de memoria — remitirse siempre a la documentación.",cite:""},
+{num:11,text:"El perito de la acusación afirma que las facturas presentan patrones de numeración incompatibles con actividad real. ¿Qué opina?",risk:"low",strategy:"No entrar en debate pericial. Señalar que la defensa ha aportado contra-pericial que rebate esa conclusión. El acusado no es experto en patrones de facturación.",trap:"Quiere que el acusado se convierta en perito y entre en terreno técnico donde puede contradecirse. Derivar siempre al perito de la defensa.",cite:"Art. 723 LECrim: la valoración pericial corresponde al tribunal"},
+{num:12,text:"Si todo era regular, ¿por qué el CEO se ha conformado con la acusación?",risk:"medium",strategy:"La conformidad del CEO es una decisión procesal personal que no implica culpabilidad de terceros. Cada acusado tiene derecho a su propia estrategia de defensa. La conformidad puede responder a motivos personales, económicos o de oportunidad procesal.",trap:"La conformidad del CEO es el arma más potente de la fiscalía. No dejar que se interprete como admisión de culpa colectiva.",cite:"STS 123/2024: 'La conformidad de un coacusado no puede valorarse como prueba de cargo contra los demás'"}
+];
+const contraLines=[
+{num:1,title:"Delegación funcional documentada",body:"Solicitar al tribunal que se exhiba el manual de funciones de la empresa. El CFO tenía competencias sobre reporting financiero y tesorería, pero no sobre contratación de proveedores ni validación de servicios recibidos.",cite:"Art. 31 bis.2 CP: los modelos de organización y gestión eximen de responsabilidad si son efectivos"},
+{num:2,title:"Auditorías externas limpias",body:"En los ejercicios 2019-2022, la auditora externa (una Big Four) emitió informes sin salvedades. Si profesionales especializados no detectaron irregularidades, no puede exigirse al CFO una diligencia superior.",cite:"STS 567/2022: 'La ausencia de salvedades en auditoría externa es indicativo de la apariencia de regularidad'"},
+{num:3,title:"Conformidad del CEO como prueba exculpatoria",body:"El CEO se conformó aceptando ser el ideólogo de la trama. Su declaración en fase de instrucción (folio 234) señala expresamente que 'el CFO no participó en la selección ni negociación con los proveedores investigados'.",cite:"Art. 714 LECrim: declaraciones en instrucción vs. plenario"},
+{num:4,title:"Ausencia de beneficio personal",body:"Solicitar certificación de nóminas y bonus: la remuneración del acusado era fija + variable vinculada a EBITDA general, sin componente ligado a reducción fiscal ni a operaciones con los proveedores investigados.",cite:""},
+{num:5,title:"Departamento fiscal externo",body:"Las declaraciones tributarias las preparaba una asesoría fiscal externa (Garrigues Tax). El CFO solo firmaba como representante legal. Citar al responsable fiscal de la asesoría como testigo.",cite:"Contrato de servicios fiscales obrante al folio 456"},
+{num:6,title:"Error de tipo invencible",body:"Si el acusado desconocía la naturaleza instrumental de las sociedades proveedoras — y la evidencia documental no permite concluir lo contrario — estamos ante un error de tipo del art. 14.1 CP que excluye la responsabilidad dolosa.",cite:"Art. 14.1 CP: error sobre un elemento del tipo penal excluye la responsabilidad criminal"}
+];
+const trampas=[
+{title:"Pregunta de asunción de culpa",desc:"'¿Cuándo se dio cuenta de que las facturas eran falsas?' — Presupone que el acusado sabía que eran falsas. La pregunta correcta sería si lo sabía, no cuándo se dio cuenta.",defense:"Respuesta: 'No acepto la premisa de su pregunta. En ningún momento he tenido conocimiento de que las facturas fueran falsas.'"},
+{title:"Cita selectiva de declaraciones",desc:"'Pero usted dijo en instrucción que supervisaba toda la contabilidad...' — Cita parcial que omite el contexto ('supervisar el marco general' ≠ 'revisar cada asiento').",defense:"Respuesta: 'Le ruego que lea mi declaración completa. Dije que supervisaba el marco contable general, lo cual es distinto de lo que usted sugiere.'"},
+{title:"Falso dilema CEO/CFO",desc:"'Si no fue usted quien autorizó estas operaciones, ¿está diciendo que fue el CEO actuando solo?' — Intenta forzar una acusación cruzada o una admisión de participación conjunta.",defense:"Respuesta: 'No me corresponde a mí señalar responsabilidades ajenas. Solo puedo declarar sobre mis propias funciones y conocimientos.'"},
+{title:"Apelación a la obviedad",desc:"'Como CFO con 15 años de experiencia, ¿de verdad pretende que no vio nada irregular en facturas de 2.3 millones?' — Usa la experiencia profesional como prueba de conocimiento.",defense:"Respuesta: 'Mi experiencia me permite supervisar marcos generales. Ni los auditores externos detectaron irregularidades, lo cual demuestra que no eran evidentes.'"},
+{title:"Trampa de la cifra exacta",desc:"'¿Cuánto se pagó exactamente a Servicios Levante en 2021?' — Busca que improvises una cifra que pueda contradecir los documentos. Si aciertas, 'conocías los detalles'; si fallas, 'mientes'.",defense:"Respuesta: 'No tengo esa cifra de memoria. Los importes exactos constan en la documentación contable que obra en autos.'"}
+];
+const pregContainer=document.getElementById('tab-preguntas');
+preguntas.forEach(p=>{
+const riskClass=p.risk==='high'?'risk-high':p.risk==='medium'?'risk-medium':'risk-low';
+const riskLabel=p.risk==='high'?'Alto riesgo':p.risk==='medium'?'Riesgo medio':'Bajo riesgo';
+pregContainer.innerHTML+=`
+<div class="question-card" onclick="this.classList.toggle('expanded')">
+<div class="q-header"><div><div class="q-number">PREGUNTA ${p.num}</div><div class="q-text">${p.text}</div></div><span class="q-risk ${riskClass}">${riskLabel}</span></div>
+<div class="q-answer">
+<div class="strategy-box"><h5>Estrategia de respuesta</h5><p>${p.strategy}</p></div>
+<div class="trap-box"><h5>Intenci&oacute;n del fiscal</h5><p>${p.trap}</p></div>
+${p.cite?`<div style="font-size:12px;color:var(--blue);margin-top:8px;font-style:italic">${p.cite}</div>`:''}
+</div>
+</div>`;
+});
+const contraContainer=document.getElementById('tab-contra');
+contraContainer.innerHTML='<div class="section-title">L&iacute;neas de contrainterrogatorio</div><p style="font-size:13px;color:var(--muted);margin-bottom:20px">Argumentos para el turno de preguntas de la defensa a testigos y peritos de la acusaci&oacute;n</p>';
+contraLines.forEach(c=>{
+contraContainer.innerHTML+=`
+<div class="counter-card">
+<div class="counter-header"><div class="counter-num">${c.num}</div><div class="counter-title">${c.title}</div></div>
+<div class="counter-body">${c.body}${c.cite?`<div class="cite">${c.cite}</div>`:''}</div>
+</div>`;
+});
+const trapContainer=document.getElementById('tab-trampas');
+trapContainer.innerHTML='<div class="section-title">Trampas t&iacute;picas de la Fiscal&iacute;a</div><p style="font-size:13px;color:var(--muted);margin-bottom:20px">Patrones de preguntas dise&ntilde;adas para obtener admisiones involuntarias</p>';
+trampas.forEach(t=>{
+trapContainer.innerHTML+=`
+<div class="trap-main">
+<div class="trap-title">${t.title}</div>
+<div class="trap-desc">${t.desc}</div>
+<div class="trap-defense"><strong>Defensa recomendada:</strong> ${t.defense}</div>
+</div>`;
+});
+function showTab(id,btn){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('tab-'+id).classList.add('active');
+}
+</script>
+</body>
+</html>

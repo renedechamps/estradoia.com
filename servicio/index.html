@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El servicio — Estrado AI</title>
+<meta name="description" content="Copilotaje completo en IA para tu defensa penal. Dashboard, escritos, estrategia, seguimiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+<style>
+.process{display:flex;gap:0;margin:2.5rem 0;position:relative}
+.process::before{content:'';position:absolute;top:28px;left:40px;right:40px;height:1px;background:var(--pearl)}
+.step{flex:1;text-align:center;padding:0 12px;position:relative}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--bone);border:2px solid var(--pearl);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:var(--gold);position:relative;z-index:1}
+.step h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:500;margin-bottom:6px}
+.step p{font-size:12px;color:var(--slate);line-height:1.6}
+.srv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:2.5rem 0}
+.srv{padding:2rem;border:1px solid var(--pearl);border-radius:8px;transition:border-color 0.3s}
+.srv:hover{border-color:rgba(176,144,88,0.3)}
+.srv h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:500;margin-bottom:8px;color:var(--navy)}
+.srv p{font-size:14px;color:var(--steel);line-height:1.7}
+.srv .inc{font-size:12px;color:var(--gold);margin-top:10px;letter-spacing:0.5px}
+.highlight-box{background:var(--gold-bg);border:1px solid rgba(176,144,88,0.2);border-radius:8px;padding:2rem;margin:2rem 0}
+.highlight-box h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:8px}
+.highlight-box p{font-size:14px;color:var(--steel);line-height:1.8}
+.planes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:2.5rem 0}
+.plan{border:1px solid var(--pearl);border-radius:8px;padding:2rem;position:relative;transition:border-color 0.3s}
+.plan:hover{border-color:rgba(176,144,88,0.3)}
+.plan.featured{border:2px solid var(--gold)}
+.plan.featured::before{content:'Mas solicitado';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--white);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 14px;border-radius:3px;font-weight:500;white-space:nowrap}
+.plan .tier{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+.plan .price{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:600;color:var(--navy)}
+.plan .price span{font-size:16px;font-weight:400;color:var(--slate)}
+.plan .setup{font-size:12px;color:var(--silver);margin-bottom:16px}
+.plan .includes{border-top:1px solid var(--pearl);padding-top:14px}
+.plan .includes p{font-size:13px;color:var(--steel);padding-left:16px;position:relative;margin-bottom:6px;line-height:1.5}
+.plan .includes p::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.seg-grid{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin:2rem 0}
+.seg-item{font-size:14px;color:var(--steel);display:flex;align-items:center;gap:8px}
+.seg-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+@media(max-width:768px){.srv-grid,.planes{grid-template-columns:1fr}.process{flex-direction:column;gap:16px}.process::before{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 220 50" height="28"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#FFF" stroke-width="1.2"/><line x1="15" y1="14" x2="15" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><circle cx="32" cy="14" r="1.8" fill="#FFF"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="600" letter-spacing="3" fill="#FFF">ESTRADO</text><line x1="182" y1="16" x2="182" y2="34" stroke="#FFF" stroke-width="0.5" opacity="0.35"/><text x="190" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="300" letter-spacing="2" fill="#FFF">AI</text></svg>
+  </a>
+  <div class="nav-links">
+    <a href="/servicio" style="color:#fff">Servicio</a>
+    <a href="/casos">Casos</a>
+    <a href="/sobre-mi">Sobre mi</a>
+    <a href="/agendar" class="nav-cta">Agendar conversacion</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <p class="section-label">El servicio</p>
+  <h1>Que hago en tu caso.<br>Como lo hago. Que recibes.</h1>
+  <p>Todo pasa por mis manos. No hay algoritmo sin supervision ni borrador sin revision humana.</p>
+</header>
+
+<!-- PROCESO -->
+<div class="section">
+  <p class="section-label">Proceso</p>
+  <h2>Como funciona el onboarding</h2>
+  <div class="process">
+    <div class="step"><div class="step-num">1</div><h4>Conversacion</h4><p>30 minutos para entender tu caso, tus necesidades y evaluar si puedo aportar valor real.</p></div>
+    <div class="step"><div class="step-num">2</div><h4>Acceso</h4><p>Me das acceso al expediente. Configuro tu ordenador dedicado y comienzo la ingesta de documentacion.</p></div>
+    <div class="step"><div class="step-num">3</div><h4>Dashboard</h4><p>En 48-72 horas tienes tu panel interactivo operativo con el expediente completo organizado.</p></div>
+    <div class="step"><div class="step-num">4</div><h4>Copilotaje</h4><p>Trabajo en tu caso de forma continua: escritos, estrategia, alertas, recepcion de comunicados.</p></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SERVICIOS -->
+<div class="section">
+  <p class="section-label">Que incluye</p>
+  <h2>El servicio en detalle</h2>
+  <p>Cada entregable pasa por mis manos. La IA es mi herramienta. La responsabilidad es mia.</p>
+
+  <div class="srv-grid">
+    <div class="srv">
+      <h3>Dashboard 360</h3>
+      <p>Organizo todo tu expediente en un panel interactivo protegido: partes, plazos, pruebas, estado procesal, linea temporal. Accesible desde cualquier dispositivo, actualizado en tiempo real.</p>
+      <p class="inc">Incluido en todos los planes</p>
+    </div>
+    <div class="srv">
+      <h3>Recepcion y gestion</h3>
+      <p>Gestiono la recepcion de escritos y comunicados del procedimiento. Cada documento que llega se clasifica, indexa y anade al dashboard automaticamente. Te notifico de todo lo relevante.</p>
+      <p class="inc">Incluido en todos los planes</p>
+    </div>
+    <div class="srv">
+      <h3>Borradores de escritos</h3>
+      <p>Redacto borradores con citas jurisprudenciales verificadas, estructura argumentativa solida y tono procesal adecuado. Tu revisas, ajustas lo que consideres, y firmas.</p>
+      <p class="inc">Desde el plan Profesional</p>
+    </div>
+    <div class="srv">
+      <h3>Estrategia procesal</h3>
+      <p>Analizo escenarios de salida, debilidades de la acusacion, y te propongo un calendario de actuaciones optimo con arbol de decisiones cuantificado.</p>
+      <p class="inc">Plan Integral</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Propuestas <em>just in time</em></h3>
+    <p>A partir del plan Profesional, no necesitas pedirme que redacte. Cuando detecto que un escrito es necesario — por un plazo que se acerca, un comunicado que requiere respuesta, o un momento procesal que lo aconseja — te lo propongo proactivamente con un borrador inicial listo para tu revision. Tu decides si lo usas, lo modificas o lo descartas.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ORDENADOR DEDICADO -->
+<div class="section">
+  <p class="section-label">Infraestructura</p>
+  <h2>Un ordenador dedicado para tu caso</h2>
+  <p>Cada cliente trabaja sobre un ordenador fisico dedicado exclusivamente a su expediente. No hay servidores compartidos, no hay riesgo de cruce de datos entre causas. Tu informacion vive en una maquina que solo procesa tu caso.</p>
+  <div class="seg-grid">
+    <div class="seg-item">Cifrado AES-256</div>
+    <div class="seg-item">NDA especifico por causa</div>
+    <div class="seg-item">RGPD completo</div>
+    <div class="seg-item">Ordenador dedicado por caso</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PLANES -->
+<div class="section">
+  <p class="section-label">Inversion</p>
+  <h2>Tres niveles de dedicacion</h2>
+  <p>Todos incluyen un mes de trabajo sin coste para que evalues el servicio con tu propio expediente.</p>
+  <div class="planes">
+    <div class="plan">
+      <p class="tier">Esencial</p>
+      <p class="price">1.500<span>&euro;/mes</span></p>
+      <p class="setup">Setup: 4.000&euro; (incl. 1.000&euro; ordenador dedicado)</p>
+      <div class="includes">
+        <p>Dashboard interactivo completo</p>
+        <p>Organizacion total del expediente</p>
+        <p>Recepcion y gestion de escritos y comunicados</p>
+        <p>Alertas de plazos procesales</p>
+        <p>Seguimiento legislativo</p>
+      </div>
+    </div>
+    <div class="plan featured">
+      <p class="tier">Profesional</p>
+      <p class="price">2.500<span>&euro;/mes</span></p>
+      <p class="setup">Setup: 5.000&euro; (incl. 1.000&euro; ordenador dedicado)</p>
+      <div class="includes">
+        <p>Todo lo incluido en Esencial</p>
+        <p>Propuestas <em>just in time</em> de borradores</p>
+        <p>2 borradores de escritos al mes</p>
+        <p>Analisis jurisprudencial avanzado</p>
+        <p>Informe mensual de estrategia</p>
+      </div>
+    </div>
+    <div class="plan">
+      <p class="tier">Integral</p>
+      <p class="price">4.000<span>&euro;/mes</span></p>
+      <p class="setup">Setup: 6.000&euro; (incl. 1.000&euro; ordenador dedicado)</p>
+      <div class="includes">
+        <p>Todo lo incluido en Profesional</p>
+        <p>Escritos ilimitados</p>
+        <p>Estrategia procesal completa</p>
+        <p>Disponibilidad prioritaria</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <p class="section-label">Siguiente paso</p>
+  <h2>30 minutos para entender tu caso.</h2>
+  <p>Sin coste. Sin compromiso. Si no te convence, te quedas con el trabajo realizado.</p>
+  <a href="/agendar" class="cta-btn">Agendar mi primera conversacion</a>
+  <p class="plazas"><strong>7</strong> de 10 plazas disponibles</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <svg viewBox="0 0 220 50" height="22"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#9AABB8" stroke-width="1"/><line x1="15" y1="14" x2="15" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><circle cx="32" cy="14" r="1.5" fill="#9AABB8"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="500" letter-spacing="3" fill="#9AABB8">ESTRADO</text><line x1="170" y1="16" x2="170" y2="34" stroke="#9AABB8" stroke-width="0.5" opacity="0.4"/><text x="178" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="2" fill="#9AABB8">AI</text></svg>
+  </div>
+  <p><a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a></p>
+  <div class="footer-links"><a href="/privacidad">Politica de privacidad</a><a href="/aviso-legal">Aviso legal</a></div>
+  <p class="personal">Un servicio personal. No una startup.</p>
+</footer>
+
+</body>
+</html>

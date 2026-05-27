@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 100" width="480" height="100">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Monogram: geometric E inside a refined hexagonal shape -->
+  <g transform="translate(20, 8)">
+    <!-- Outer clean geometric frame — subtle rounded rectangle -->
+    <rect x="0" y="0" width="72" height="84" rx="4" fill="none" stroke="#0A1A2F" stroke-width="1.8"/>
+    <!-- Inner geometric E — three horizontal bars with vertical stem -->
+    <line x1="22" y1="22" x2="22" y2="62" stroke="#0A1A2F" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="22" y1="22" x2="50" y2="22" stroke="#0A1A2F" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="22" y1="42" x2="44" y2="42" stroke="#0A1A2F" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="22" y1="62" x2="50" y2="62" stroke="#0A1A2F" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- Subtle AI accent — small dot at the intersection point -->
+    <circle cx="50" cy="22" r="2.5" fill="#0A1A2F"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="112" y="48" font-family="'Cormorant Garamond',Georgia,'Times New Roman',serif" font-size="38" font-weight="600" letter-spacing="6" fill="#0A1A2F">ESTRADO</text>
+  <!-- Separator line -->
+  <line x1="370" y1="26" x2="370" y2="58" stroke="#0A1A2F" stroke-width="0.8" opacity="0.4"/>
+  <!-- AI mark -->
+  <text x="384" y="48" font-family="'Cormorant Garamond',Georgia,'Times New Roman',serif" font-size="38" font-weight="300" letter-spacing="3" fill="#0A1A2F">AI</text>
+  <!-- Tagline -->
+  <text x="112" y="72" font-family="'Cormorant Garamond',Georgia,'Times New Roman',serif" font-size="10.5" font-weight="400" letter-spacing="4.5" fill="#6B7B8D">INTELIGENCIA ARTIFICIAL PARA LA DEFENSA PENAL</text>
+</svg>

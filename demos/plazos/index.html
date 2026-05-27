@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monitor de plazos y prescripción penal | Estrado AI — Control automático</title>
+<meta name="description" content="Cálculo automático de prescripción por delito, alertas de vencimientos procesales y semáforo de urgencia. Demo de Estrado AI.">
+<link rel="canonical" href="https://estradoia.com/demos/plazos">
+<meta name="hreflang" content="es">
+<meta property="og:title" content="Monitor de plazos y prescripción penal | Estrado AI — Control automático">
+<meta property="og:description" content="Cálculo automático de prescripción por delito, alertas de vencimientos procesales y semáforo de urgencia. Demo de Estrado AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://estradoia.com/demos/plazos">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Estrado AI">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Estrado AI", "item": "https://estradoia.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Monitor de plazos y prescripción penal", "item": "https://estradoia.com/demos/plazos"}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1A2F;--gold:#B09058;--gold-light:#C4A46D;--white:#FAFAF8;--bg:#F4F1EB;--text:#2C2C2C;--muted:#6B6B6B;--green:#2D8A5E;--red:#C0392B;--amber:#D4881C;--blue:#2E75B6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.top-bar{background:var(--navy);padding:12px 0;text-align:center}
+.top-bar a{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:18px;text-decoration:none;font-weight:600;letter-spacing:1px}
+.demo-banner{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);text-align:center;padding:10px;font-size:12px;font-weight:500;letter-spacing:.5px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#162A45 100%);padding:40px 24px 32px;text-align:center}
+.hero h1{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:32px;font-weight:600;margin-bottom:8px}
+.hero p{color:rgba(255,255,255,.6);font-size:14px}
+.container{max-width:960px;margin:0 auto;padding:24px}
+.alert-banner{background:#FDEDED;border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.alert-icon{width:36px;height:36px;border-radius:50%;background:var(--red);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+.alert-text{font-size:13px;color:var(--red)}
+.alert-text strong{display:block;font-size:14px;margin-bottom:2px}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat{background:var(--white);border-radius:8px;padding:16px;text-align:center;border:1px solid rgba(0,0,0,.06)}
+.stat .val{font-size:24px;font-weight:600}
+.stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.val-red{color:var(--red)}.val-amber{color:var(--amber)}.val-green{color:var(--green)}.val-navy{color:var(--navy)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+.prescription-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.presc-card{background:var(--white);border-radius:10px;padding:20px;border:1px solid rgba(0,0,0,.06);position:relative;overflow:hidden}
+.presc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.presc-card.urgent::before{background:var(--red)}
+.presc-card.warning::before{background:var(--amber)}
+.presc-card.safe::before{background:var(--green)}
+.presc-card.expired::before{background:#888}
+.presc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.presc-delito{font-size:14px;font-weight:600;color:var(--navy)}
+.presc-art{font-size:12px;color:var(--muted);margin-top:2px}
+.presc-status{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.status-urgent{background:#FDEDED;color:var(--red)}
+.status-warning{background:#FFF3E0;color:var(--amber)}
+.status-safe{background:#E8F5E9;color:var(--green)}
+.status-expired{background:#f0f0f0;color:#888}
+.countdown{text-align:center;margin:16px 0}
+.countdown .days{font-size:42px;font-weight:700;line-height:1}
+.countdown .days-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.presc-bar{height:8px;background:#E8E8E8;border-radius:4px;margin:12px 0;overflow:hidden}
+.presc-fill{height:100%;border-radius:4px;transition:width 1s ease}
+.presc-details{font-size:12px;color:var(--muted)}
+.presc-details div{display:flex;justify-content:space-between;padding:3px 0}
+.presc-details span:last-child{color:var(--text);font-weight:500}
+.deadlines{margin-bottom:36px}
+.deadline-card{background:var(--white);border-radius:8px;padding:16px 18px;margin-bottom:8px;border:1px solid rgba(0,0,0,.06);display:grid;grid-template-columns:60px 1fr auto;gap:16px;align-items:center}
+.dl-date{text-align:center}
+.dl-day{font-size:22px;font-weight:700;color:var(--navy);line-height:1}
+.dl-month{font-size:11px;color:var(--muted);text-transform:uppercase}
+.dl-info h4{font-size:14px;color:var(--navy);margin-bottom:2px}
+.dl-info p{font-size:12px;color:var(--muted)}
+.dl-countdown{text-align:right}
+.dl-days{font-size:18px;font-weight:600}
+.dl-label{font-size:10px;color:var(--muted);text-transform:uppercase}
+.semaforo{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.sem-red{background:var(--red)}.sem-amber{background:var(--amber)}.sem-green{background:var(--green)}.sem-gray{background:#aaa}
+.timeline{margin-bottom:36px}
+.tl-wrap{background:var(--white);border-radius:10px;padding:20px;border:1px solid rgba(0,0,0,.06)}
+.tl-row{display:grid;grid-template-columns:100px 24px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.04)}
+.tl-row:last-child{border-bottom:none}
+.tl-date-col{font-size:12px;color:var(--muted);text-align:right;padding-top:2px}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:12px;height:12px;border-radius:50%;border:2px solid;flex-shrink:0}
+.tl-line{width:2px;flex:1;margin-top:4px}
+.tl-content{font-size:13px}
+.tl-content strong{color:var(--navy);display:block;margin-bottom:2px}
+.tl-content span{color:var(--muted);font-size:12px}
+.chart-section{margin-bottom:36px}
+.chart-wrap{background:var(--white);border-radius:10px;padding:20px;border:1px solid rgba(0,0,0,.06)}
+.chart-container{position:relative;height:300px}
+footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:12px}
+footer a{color:var(--gold);text-decoration:none}
+@media(max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr)}.prescription-grid{grid-template-columns:1fr}.deadline-card{grid-template-columns:50px 1fr auto}}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO INTERACTIVA &mdash; Caso ficticio &ldquo;Operaci&oacute;n Meridiano&rdquo;</div>
+<nav style="padding:8px 24px;font-size:13px;background:var(--bg);border-bottom:1px solid rgba(0,0,0,.06)" aria-label="Breadcrumb"><a href="/" style="color:var(--gold);text-decoration:none">← Volver a Estrado AI</a></nav>
+<div class="top-bar"><a href="/">ESTRADO AI</a></div>
+<div class="hero">
+<h1>Monitor de Plazos y Prescripci&oacute;n</h1>
+<p>Control autom&aacute;tico de fechas cr&iacute;ticas, prescripci&oacute;n y vencimientos procesales</p>
+</div>
+<div class="container">
+<div class="alert-banner">
+<div class="alert-icon">!</div>
+<div class="alert-text">
+<strong>Alerta: Escrito de calificaci&oacute;n provisional en 18 d&iacute;as</strong>
+Plazo para presentar escrito de defensa vence el 12 de junio de 2026. Prioridad m&aacute;xima.
+</div>
+</div>
+<div class="stats-bar">
+<div class="stat"><div class="val val-red">2</div><div class="lbl">Plazos urgentes</div></div>
+<div class="stat"><div class="val val-amber">3</div><div class="lbl">Pr&oacute;ximos 30 d&iacute;as</div></div>
+<div class="stat"><div class="val val-green">4</div><div class="lbl">Sin urgencia</div></div>
+<div class="stat"><div class="val val-navy">1</div><div class="lbl">Prescripci&oacute;n alcanzada</div></div>
+</div>
+<div class="section-title">C&aacute;lculo de prescripci&oacute;n por delito</div>
+<div class="prescription-grid">
+<div class="presc-card urgent">
+<div class="presc-header">
+<div><div class="presc-delito">Fraude fiscal agravado</div><div class="presc-art">Art. 305.1 bis CP &bull; Ejercicios 2019-2022</div></div>
+<span class="presc-status status-urgent">Activo</span>
+</div>
+<div class="countdown"><div class="days" style="color:var(--red)">1.247</div><div class="days-label">d&iacute;as restantes</div></div>
+<div class="presc-bar"><div class="presc-fill" style="width:66%;background:var(--red)"></div></div>
+<div class="presc-details">
+<div><span>Plazo legal</span><span>10 a&ntilde;os (art. 131.1 CP)</span></div>
+<div><span>Dies a quo</span><span>30/06/2023 (&uacute;ltima declaraci&oacute;n)</span></div>
+<div><span>Prescribe</span><span>30/06/2033</span></div>
+<div><span>Interrupciones</span><span>1 (auto apertura juicio oral)</span></div>
+<div><span>Cuant&iacute;a agregada</span><span>847.000&euro; (&gt;600K = tipo agravado)</span></div>
+</div>
+</div>
+<div class="presc-card warning">
+<div class="presc-header">
+<div><div class="presc-delito">Falsedad documental</div><div class="presc-art">Art. 392 en rel. 390.1.2&ordm; CP</div></div>
+<span class="presc-status status-warning">Activo</span>
+</div>
+<div class="countdown"><div class="days" style="color:var(--amber)">583</div><div class="days-label">d&iacute;as restantes</div></div>
+<div class="presc-bar"><div class="presc-fill" style="width:84%;background:var(--amber)"></div></div>
+<div class="presc-details">
+<div><span>Plazo legal</span><span>5 a&ntilde;os (art. 131.1 CP)</span></div>
+<div><span>Dies a quo</span><span>15/03/2022 (&uacute;ltima factura falsa)</span></div>
+<div><span>Prescribe</span><span>15/03/2027</span></div>
+<div><span>Interrupciones</span><span>1 (querella AEAT 10/2024)</span></div>
+<div><span>Argumento defensa</span><span>C&oacute;mputo individual por factura</span></div>
+</div>
+</div>
+<div class="presc-card expired">
+<div class="presc-header">
+<div><div class="presc-delito">Fraude fiscal &mdash; Ejercicio 2018</div><div class="presc-art">Art. 305.1 CP (tipo b&aacute;sico)</div></div>
+<span class="presc-status status-expired">Prescrito</span>
+</div>
+<div class="countdown"><div class="days" style="color:#888">0</div><div class="days-label">PRESCRITO</div></div>
+<div class="presc-bar"><div class="presc-fill" style="width:100%;background:#aaa"></div></div>
+<div class="presc-details">
+<div><span>Plazo legal</span><span>5 a&ntilde;os (cuota &lt;120K&euro;)</span></div>
+<div><span>Dies a quo</span><span>30/06/2019</span></div>
+<div><span>Prescribi&oacute;</span><span>30/06/2024 &#10003;</span></div>
+<div><span>Cuota individual</span><span>73.000&euro; (&lt;120K = tipo b&aacute;sico)</span></div>
+<div><span>Acci&oacute;n</span><span style="color:var(--green)">Alegar prescripci&oacute;n parcial</span></div>
+</div>
+</div>
+<div class="presc-card safe">
+<div class="presc-header">
+<div><div class="presc-delito">Responsabilidad civil</div><div class="presc-art">Art. 116 CP &bull; Subsidiaria</div></div>
+<span class="presc-status status-safe">Pendiente</span>
+</div>
+<div class="countdown"><div class="days" style="color:var(--green)">N/A</div><div class="days-label">vinculada a sentencia</div></div>
+<div class="presc-bar"><div class="presc-fill" style="width:20%;background:var(--green)"></div></div>
+<div class="presc-details">
+<div><span>Tipo</span><span>Subsidiaria del acusado</span></div>
+<div><span>Cuant&iacute;a reclamada</span><span>847.000&euro; + intereses</span></div>
+<div><span>Prescripci&oacute;n RC</span><span>1 a&ntilde;o desde sentencia firme</span></div>
+<div><span>Estado</span><span>Pendiente de sentencia</span></div>
+<div><span>Nota</span><span style="color:var(--blue)">CEO asume principal por conformidad</span></div>
+</div>
+</div>
+</div>
+<div class="deadlines">
+<div class="section-title">Plazos procesales activos</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">12</div><div class="dl-month">JUN</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-red"></span>Escrito de calificaci&oacute;n provisional</h4><p>Art. 784.1 LECrim &bull; Escrito de defensa con proposici&oacute;n de prueba</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--red)">18</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">20</div><div class="dl-month">JUN</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-red"></span>Dep&oacute;sito pericial de parte</h4><p>Informe del perito contable de la defensa &bull; 5 d&iacute;as antes del juicio</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--red)">26</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">25</div><div class="dl-month">JUN</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-amber"></span>Juicio oral</h4><p>Juzgado de lo Penal n&ordm; 14 de Madrid &bull; Sala 3, 10:00h</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--amber)">31</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">10</div><div class="dl-month">JUL</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-amber"></span>Plazo para recurso de apelaci&oacute;n</h4><p>Art. 790 LECrim &bull; 10 d&iacute;as desde notificaci&oacute;n sentencia</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--amber)">46</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">15</div><div class="dl-month">JUL</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-green"></span>Renovaci&oacute;n medida cautelar</h4><p>Retirada de pasaporte &bull; Revisi&oacute;n trimestral</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--green)">51</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+<div class="deadline-card">
+<div class="dl-date"><div class="dl-day">30</div><div class="dl-month">SEP</div></div>
+<div class="dl-info"><h4><span class="semaforo sem-green"></span>Plazo liquidaci&oacute;n tributaria complementaria</h4><p>Regularizaci&oacute;n voluntaria ejercicio 2022 &bull; Efectos atenuantes art. 305.4 CP</p></div>
+<div class="dl-countdown"><div class="dl-days" style="color:var(--green)">128</div><div class="dl-label">d&iacute;as</div></div>
+</div>
+</div>
+<div class="chart-section">
+<div class="section-title">Mapa temporal del caso</div>
+<div class="chart-wrap">
+<div style="display:flex;gap:16px;font-size:12px;color:#6B6B6B;margin-bottom:12px;flex-wrap:wrap">
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(192,57,43,.7)"></span>Plazos urgentes</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(212,136,28,.7)"></span>Pr&oacute;ximos 60 d&iacute;as</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(45,138,94,.7)"></span>Sin urgencia</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(46,117,182,.7)"></span>Prescripci&oacute;n</span>
+</div>
+<div class="chart-container"><canvas id="timelineChart"></canvas></div>
+</div>
+</div>
+</div>
+<footer><a href="/">Estrado AI</a> &mdash; Inteligencia Artificial para la Defensa Penal<br>Ejemplo demostrativo con datos ficticios</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('timelineChart'),{
+type:'bar',
+data:{
+labels:['Escrito defensa','Dep. pericial','Juicio oral','Recurso apelación','Cautelar','Liquidación','Presc. falsedad','Presc. fraude'],
+datasets:[{
+label:'Días restantes',
+data:[18,26,31,46,51,128,583,1247],
+backgroundColor:['rgba(192,57,43,.7)','rgba(192,57,43,.7)','rgba(212,136,28,.7)','rgba(212,136,28,.7)','rgba(45,138,94,.7)','rgba(45,138,94,.7)','rgba(46,117,182,.7)','rgba(46,117,182,.7)'],
+borderRadius:4
+}]
+},
+options:{
+indexAxis:'y',
+responsive:true,
+maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.raw+' días'}}}},
+scales:{
+x:{grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Días restantes',font:{size:11},color:'#6B6B6B'}},
+y:{grid:{display:false},ticks:{font:{size:12}}}
+}
+}
+});
+</script>
+</body>
+</html>

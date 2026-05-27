@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos reales — Estrado AI</title>
+<meta name="description" content="Resultados tangibles en causas penales reales. Datos anonimizados.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+<style>
+.caso-card{background:var(--white);border:1px solid var(--pearl);border-radius:8px;padding:2.5rem;margin-bottom:2rem;position:relative;overflow:hidden;transition:border-color 0.3s}
+.caso-card:hover{border-color:rgba(176,144,88,0.3)}
+.caso-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.caso-type{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.caso-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:500;margin-bottom:16px;color:var(--navy)}
+.caso-nums{display:flex;gap:32px;margin-bottom:20px;flex-wrap:wrap}
+.caso-num{text-align:center}
+.caso-num .val{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:600;color:var(--navy);line-height:1}
+.caso-num .lab{font-size:11px;color:var(--slate);margin-top:4px}
+.caso-detail{border-top:1px solid var(--pearl);padding-top:20px}
+.caso-detail h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:500;color:var(--navy);margin-bottom:8px}
+.caso-detail p{font-size:14px;color:var(--steel);line-height:1.8;margin-bottom:12px}
+.timeline{display:flex;gap:0;margin:20px 0}
+.tl-step{flex:1;text-align:center;padding:16px 8px;position:relative}
+.tl-step::after{content:'';position:absolute;top:32px;right:0;width:100%;height:1px;background:var(--pearl)}
+.tl-step:last-child::after{display:none}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);margin:0 auto 8px;position:relative;z-index:1}
+.tl-step .tl-time{font-size:11px;color:var(--gold);font-weight:500;letter-spacing:1px}
+.tl-step .tl-desc{font-size:11px;color:var(--slate);margin-top:4px;line-height:1.4}
+.caso-link{display:inline-block;margin-top:16px;font-size:13px;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 220 50" height="28"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#FFF" stroke-width="1.2"/><line x1="15" y1="14" x2="15" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#FFF" stroke-width="1.4" stroke-linecap="round"/><circle cx="32" cy="14" r="1.8" fill="#FFF"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="600" letter-spacing="3" fill="#FFF">ESTRADO</text><line x1="182" y1="16" x2="182" y2="34" stroke="#FFF" stroke-width="0.5" opacity="0.35"/><text x="190" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="300" letter-spacing="2" fill="#FFF">AI</text></svg>
+  </a>
+  <div class="nav-links">
+    <a href="/servicio">Servicio</a>
+    <a href="/casos" style="color:#fff">Casos</a>
+    <a href="/sobre-mi">Sobre mi</a>
+    <a href="/agendar" class="nav-cta">Agendar conversacion</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <p class="section-label">Resultados</p>
+  <h1>Dos causas reales.<br>Datos anonimizados.</h1>
+  <p>Cada numero representa horas de trabajo real, folios procesados y escritos entregados. Sin adornos.</p>
+</header>
+
+<div class="section">
+
+  <!-- CASO 1 -->
+  <div class="caso-card">
+    <p class="caso-type">Macrocausa mediatica nacional</p>
+    <h3>+100 imputados. 6 meses de copilotaje dedicado.</h3>
+    <div class="caso-nums">
+      <div class="caso-num"><div class="val">11</div><div class="lab">anos de pena pedida</div></div>
+      <div class="caso-num"><div class="val">50M&euro;</div><div class="lab">en multas solicitadas</div></div>
+      <div class="caso-num"><div class="val">87.000</div><div class="lab">folios del sumario</div></div>
+      <div class="caso-num"><div class="val">72h</div><div class="lab">para organizar todo</div></div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Dia 1-3</div><div class="tl-desc">Ingesta y organizacion de 87.000 folios</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Semana 1</div><div class="tl-desc">Dashboard operativo con mapa relacional de imputados</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Mes 1-2</div><div class="tl-desc">Matriz de pruebas cruzadas y linea temporal interactiva</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Mes 2-6</div><div class="tl-desc">4 borradores de escritos en fase de instruccion</div></div>
+    </div>
+
+    <div class="caso-detail">
+      <h4>Que hice en este caso</h4>
+      <p>Recibi acceso al sumario completo — mas de 87.000 folios entre atestados, declaraciones, informes periciales y documentacion bancaria. En las primeras 72 horas, organice todo el material en un dashboard interactivo con busqueda por terminos, partes implicadas y fechas.</p>
+      <p>Durante los 6 meses siguientes, construi un mapa relacional de los +100 imputados que permitia visualizar conexiones entre personas, sociedades y movimientos de fondos. Redacte 4 borradores de escritos procesales en fase de instruccion, cada uno con citas jurisprudenciales verificadas y estructura argumentativa lista para revision del letrado.</p>
+      <a href="/casos/macrocausa" class="caso-link">Ver caso completo &rarr;</a>
+    </div>
+  </div>
+
+  <!-- CASO 2 -->
+  <div class="caso-card">
+    <p class="caso-type">Delito economico complejo</p>
+    <h3>Causa con pena grave. Vicios procesales detectados.</h3>
+    <div class="caso-nums">
+      <div class="caso-num"><div class="val">10</div><div class="lab">anos de pena pedida</div></div>
+      <div class="caso-num"><div class="val">300K&euro;</div><div class="lab">responsabilidad civil</div></div>
+      <div class="caso-num"><div class="val">340</div><div class="lab">sentencias analizadas</div></div>
+      <div class="caso-num"><div class="val">48h</div><div class="lab">analisis jurisprudencial</div></div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Dia 1-2</div><div class="tl-desc">Analisis de 340 sentencias relevantes</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Dia 3-5</div><div class="tl-desc">Estrategia con 3 escenarios cuantificados</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Dia 5-10</div><div class="tl-desc">Borrador de escrito de defensa entregado</div></div>
+      <div class="tl-step"><div class="tl-dot"></div><div class="tl-time">Continuo</div><div class="tl-desc">Identificacion de 2 vicios procesales</div></div>
+    </div>
+
+    <div class="caso-detail">
+      <h4>Que hice en este caso</h4>
+      <p>Analice 340 sentencias relevantes en 48 horas, identificando las lineas jurisprudenciales mas favorables para la defensa. Construi una estrategia procesal con 3 escenarios de salida cuantificados — cada uno con probabilidad estimada, consecuencias penales y costes asociados.</p>
+      <p>El borrador del escrito de defensa se entrego en 5 dias habiles, con estructura argumentativa completa y 28 citas jurisprudenciales verificadas. Durante el analisis, detecte 2 vicios procesales que la defensa no habia identificado previamente — uno de ellos relativo a la cadena de custodia de prueba documental.</p>
+      <a href="/casos/delito-economico" class="caso-link">Ver caso completo &rarr;</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <p class="section-label">Siguiente paso</p>
+  <h2>Tu caso podria ser el proximo.</h2>
+  <p>30 minutos para entender tu expediente y evaluar si puedo aportar valor real.</p>
+  <a href="/agendar" class="cta-btn">Agendar mi primera conversacion</a>
+  <p class="plazas"><strong>7</strong> de 10 plazas disponibles</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <svg viewBox="0 0 220 50" height="22"><rect x="4" y="4" width="38" height="42" rx="2" fill="none" stroke="#9AABB8" stroke-width="1"/><line x1="15" y1="14" x2="15" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="14" x2="32" y2="14" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="25" x2="28" y2="25" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="36" x2="32" y2="36" stroke="#9AABB8" stroke-width="1.2" stroke-linecap="round"/><circle cx="32" cy="14" r="1.5" fill="#9AABB8"/><text x="52" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="500" letter-spacing="3" fill="#9AABB8">ESTRADO</text><line x1="170" y1="16" x2="170" y2="34" stroke="#9AABB8" stroke-width="0.5" opacity="0.4"/><text x="178" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="2" fill="#9AABB8">AI</text></svg>
+  </div>
+  <p><a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a></p>
+  <div class="footer-links"><a href="/privacidad">Politica de privacidad</a><a href="/aviso-legal">Aviso legal</a></div>
+  <p class="personal">Un servicio personal. No una startup.</p>
+</footer>
+
+</body>
+</html>

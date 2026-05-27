@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard 360° penal | Estrado AI — Expediente interactivo con IA</title>
+<meta name="description" content="Panel interactivo para la defensa penal: partes, plazos, pruebas, estado procesal y línea temporal del caso. Demo de Estrado AI.">
+<link rel="canonical" href="https://estradoia.com/demos/dashboard">
+<meta name="hreflang" content="es">
+<meta property="og:title" content="Dashboard 360° penal | Estrado AI — Expediente interactivo con IA">
+<meta property="og:description" content="Panel interactivo para la defensa penal: partes, plazos, pruebas, estado procesal y línea temporal del caso. Demo de Estrado AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://estradoia.com/demos/dashboard">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Estrado AI">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Estrado AI", "item": "https://estradoia.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Dashboard 360° penal", "item": "https://estradoia.com/demos/dashboard"}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0A1A2F;--gold:#B09058;--gold-light:#D4B87A;--bg:#F8F7F4;--card:#FFFFFF;--text:#1a1a1a;--muted:#6B7280;--border:#E5E7EB;--success:#059669;--warning:#D97706;--danger:#DC2626;--info:#2563EB}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.demo-banner{background:var(--gold);color:var(--navy);text-align:center;padding:8px;font-size:13px;font-weight:500;letter-spacing:0.5px}
+.demo-banner span{opacity:0.7}
+header{background:var(--navy);color:#fff;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+header h1{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:0.5px}
+header h1 span{color:var(--gold)}
+.header-meta{display:flex;gap:24px;font-size:13px;opacity:0.8}
+.header-meta div{display:flex;align-items:center;gap:6px}
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}
+.status-badge.active{background:rgba(5,150,105,0.15);color:var(--success)}
+.status-badge.pending{background:rgba(217,119,6,0.15);color:var(--warning)}
+.status-badge.risk{background:rgba(220,38,38,0.15);color:var(--danger)}
+.status-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor}
+main{max-width:1200px;margin:0 auto;padding:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
+.card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:20px;transition:box-shadow 0.2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:14px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.metric{font-size:32px;font-weight:600;color:var(--navy)}
+.metric-label{font-size:13px;color:var(--muted);margin-top:4px}
+.metric-change{font-size:12px;font-weight:500;margin-top:8px}
+.metric-change.positive{color:var(--success)}
+.metric-change.negative{color:var(--danger)}
+h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:16px}
+.section{margin-bottom:32px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:20px;padding-bottom:4px}
+.tl-dot{position:absolute;left:-32px;top:4px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center}
+.tl-dot.done{border-color:var(--success);background:var(--success)}
+.tl-dot.done::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.tl-dot.current{border-color:var(--gold);background:var(--gold);animation:pulse 2s infinite}
+.tl-dot.current::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.tl-dot.future{border-color:var(--border)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(176,144,88,0.4)}50%{box-shadow:0 0 0 8px rgba(176,144,88,0)}}
+.tl-date{font-size:12px;color:var(--muted);font-weight:500}
+.tl-title{font-size:15px;font-weight:500;margin-top:2px}
+.tl-desc{font-size:13px;color:var(--muted);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.tag-doc{background:#EEF2FF;color:#4338CA}
+.tag-test{background:#FEF3C7;color:#92400E}
+.tag-pericial{background:#ECFDF5;color:#065F46}
+.party-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;border:1px solid var(--border);margin-bottom:8px}
+.party-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff}
+.party-name{font-weight:500;font-size:14px}
+.party-role{font-size:12px;color:var(--muted)}
+.deadline-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.deadline-row:last-child{border-bottom:none}
+.deadline-days{min-width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:18px}
+.deadline-days.urgent{background:#FEF2F2;color:var(--danger)}
+.deadline-days.soon{background:#FFFBEB;color:var(--warning)}
+.deadline-days.ok{background:#ECFDF5;color:var(--success)}
+.progress-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.charges-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.charges-row:last-child{border-bottom:none}
+.charge-letter{width:36px;height:36px;border-radius:8px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;flex-shrink:0}
+.charge-detail{flex:1}
+.charge-name{font-weight:500;font-size:14px}
+.charge-art{font-size:12px;color:var(--muted)}
+.charge-pena{font-size:13px;color:var(--danger);font-weight:500;margin-top:2px}
+footer{text-align:center;padding:32px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:32px}
+footer a{color:var(--gold);text-decoration:none}
+.watermark{position:fixed;bottom:16px;right:16px;background:var(--navy);color:var(--gold);padding:6px 14px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:0.5px;z-index:100;opacity:0.9}
+@media(max-width:768px){.grid-4,.grid-3{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}main{padding:16px}header{padding:16px}}
+@media(max-width:480px){.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO INTERACTIVA <span>— Caso ficticio generado con fines ilustrativos</span></div>
+<nav style="padding:8px 32px;font-size:13px;background:var(--bg);border-bottom:1px solid var(--border)" aria-label="Breadcrumb"><a href="/" style="color:var(--gold);text-decoration:none">← Volver a Estrado AI</a></nav>
+<header>
+<div>
+<h1>Dashboard <span>360</span></h1>
+<div style="font-size:14px;opacity:0.7;margin-top:4px">Operacion Meridiano — PA 15/2025</div>
+</div>
+<div style="display:flex;align-items:center;gap:16px">
+<span class="status-badge active">Fase: Juicio oral</span>
+<div style="font-size:13px;opacity:0.6">Actualizado: 26/05/2026</div>
+</div>
+</header>
+
+<main>
+<div class="grid-4">
+<div class="card">
+<div class="card-title">Pena solicitada</div>
+<div class="metric" style="color:var(--danger)">7 a.</div>
+<div class="metric-label">prision + 4,6 M EUR multa</div>
+</div>
+<div class="card">
+<div class="card-title">Defraudacion imputada</div>
+<div class="metric">2,3 M</div>
+<div class="metric-label">EUR (periodo 2019-2022)</div>
+</div>
+<div class="card">
+<div class="card-title">Pruebas documentales</div>
+<div class="metric">127</div>
+<div class="metric-label">47 transferencias + 80 docs</div>
+<div class="metric-change positive">12 favorables a defensa</div>
+</div>
+<div class="card">
+<div class="card-title">Dias hasta juicio (est.)</div>
+<div class="metric" id="daysCounter">183</div>
+<div class="metric-label">fecha estimada: 25/11/2026</div>
+<div class="progress-bar"><div class="progress-fill" style="width:62%;background:var(--gold)"></div></div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<div class="card-header">
+<h2>Cargos y penas</h2>
+</div>
+<div class="charges-row">
+<div class="charge-letter">A</div>
+<div class="charge-detail">
+<div class="charge-name">Fraude fiscal agravado</div>
+<div class="charge-art">Art. 305.1 bis CP — cuantia superior a 600.000 EUR</div>
+<div class="charge-pena">Pena solicitada: 5 anos prision + multa 4.600.000 EUR</div>
+</div>
+</div>
+<div class="charges-row">
+<div class="charge-letter">B</div>
+<div class="charge-detail">
+<div class="charge-name">Falsedad en documento mercantil</div>
+<div class="charge-art">Art. 392 CP en relacion con art. 390.1.2 CP</div>
+<div class="charge-pena">Pena solicitada: 2 anos prision + multa 6.480 EUR</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:12px;background:#FEF2F2;border-radius:8px;font-size:13px">
+<strong style="color:var(--danger)">Exposicion maxima:</strong> 7 anos prision + 4.606.480 EUR en multas
+<br><strong style="color:var(--success)">Objetivo defensa:</strong> Absolucion (subsidiariamente: atenuantes + minimos)
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<h2>Partes procesales</h2>
+</div>
+<div class="party-card">
+<div class="party-avatar" style="background:var(--navy)">CN</div>
+<div><div class="party-name">Carlos Navarro Mendoza</div><div class="party-role">Acusado — Ex-CFO TechVerde Solutions S.L.</div></div>
+</div>
+<div class="party-card">
+<div class="party-avatar" style="background:var(--gold)">EA</div>
+<div><div class="party-name">Estrado AI</div><div class="party-role">Defensa tecnica — Letrado director</div></div>
+</div>
+<div class="party-card">
+<div class="party-avatar" style="background:#6B7280">LM</div>
+<div><div class="party-name">Laura Martinez Soler</div><div class="party-role">Procuradora — Colegiada n. 1.204</div></div>
+</div>
+<div class="party-card">
+<div class="party-avatar" style="background:var(--danger)">FG</div>
+<div><div class="party-name">Fernando Garcia Lopez</div><div class="party-role">Fiscal Anticorrupcion</div></div>
+</div>
+<div class="party-card">
+<div class="party-avatar" style="background:var(--info)">AE</div>
+<div><div class="party-name">Abogacia del Estado</div><div class="party-role">Acusacion particular — AEAT</div></div>
+</div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<div class="card-header">
+<h2>Linea temporal del caso</h2>
+</div>
+<div class="timeline">
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">15 marzo 2022</div>
+<div class="tl-title">Apertura de diligencias previas</div>
+<div class="tl-desc">JCI n. 2 — DP 45/2022. Denuncia de la AEAT tras inspeccion.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">12 junio 2023</div>
+<div class="tl-title">Detencion y libertad bajo fianza</div>
+<div class="tl-desc">Fianza de 100.000 EUR. Retirada de pasaporte.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">28 septiembre 2023</div>
+<div class="tl-title">Declaracion como investigado</div>
+<div class="tl-desc">Navarro declara haber actuado bajo instrucciones del CEO.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">5 diciembre 2024</div>
+<div class="tl-title">Auto de Apertura de Juicio Oral</div>
+<div class="tl-desc">La Sala confirma indicios suficientes para ambos delitos.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">14 marzo 2025</div>
+<div class="tl-title">Escritos de acusacion</div>
+<div class="tl-desc">Fiscalia: 5+2 anos. Abogacia del Estado: solo delito A).</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot done"></div>
+<div class="tl-date">30 mayo 2025</div>
+<div class="tl-title">Escrito de defensa</div>
+<div class="tl-desc">Absolución por error de tipo + subsidiarias atenuantes.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot current"></div>
+<div class="tl-date">26 mayo 2026</div>
+<div class="tl-title">Preparacion de juicio oral</div>
+<div class="tl-desc">Fase actual. Practica de prueba pericial pendiente.</div>
+</div>
+<div class="tl-item">
+<div class="tl-dot future"></div>
+<div class="tl-date">25 noviembre 2026 (est.)</div>
+<div class="tl-title">Juicio oral</div>
+<div class="tl-desc">Fecha estimada. Pendiente de senalamiento por la Sala.</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<h2>Plazos y alertas</h2>
+</div>
+<div class="deadline-row">
+<div class="deadline-days urgent">3</div>
+<div style="flex:1">
+<div style="font-weight:500;font-size:14px">Informe pericial de parte</div>
+<div style="font-size:12px;color:var(--muted)">Entrega del dictamen sobre realidad de servicios software</div>
+</div>
+<span class="tag" style="background:#FEF2F2;color:var(--danger)">Urgente</span>
+</div>
+<div class="deadline-row">
+<div class="deadline-days soon">12</div>
+<div style="flex:1">
+<div style="font-weight:500;font-size:14px">Proposicion de prueba complementaria</div>
+<div style="font-size:12px;color:var(--muted)">Solicitud de testigo experto en licencias SaaS</div>
+</div>
+<span class="tag" style="background:#FFFBEB;color:var(--warning)">Proximo</span>
+</div>
+<div class="deadline-row">
+<div class="deadline-days ok">45</div>
+<div style="flex:1">
+<div style="font-weight:500;font-size:14px">Escrito de cuestiones previas</div>
+<div style="font-size:12px;color:var(--muted)">Prescripcion delito B) + vulneracion ne bis in idem</div>
+</div>
+<span class="tag" style="background:#ECFDF5;color:var(--success)">En plazo</span>
+</div>
+<div class="deadline-row">
+<div class="deadline-days ok">90</div>
+<div style="flex:1">
+<div style="font-weight:500;font-size:14px">Preparacion interrogatorio CEO</div>
+<div style="font-size:12px;color:var(--muted)">Estrategia de preguntas a M.A. Cortes en juicio</div>
+</div>
+<span class="tag" style="background:#ECFDF5;color:var(--success)">Planificado</span>
+</div>
+
+<div style="margin-top:24px">
+<h2>Riesgo procesal</h2>
+<div style="position:relative;height:220px;margin-top:8px">
+<canvas id="riskChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="card">
+<div class="card-header">
+<h2>Inventario de pruebas</h2>
+<div style="display:flex;gap:8px">
+<button onclick="filterTable('all')" style="padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:var(--navy);color:#fff;cursor:pointer;font-size:12px">Todas</button>
+<button onclick="filterTable('favorable')" style="padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:12px;color:var(--success)">Favorables</button>
+<button onclick="filterTable('adversa')" style="padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:12px;color:var(--danger)">Adversas</button>
+</div>
+</div>
+<table id="evidenceTable">
+<thead>
+<tr>
+<th>Ref.</th>
+<th>Tipo</th>
+<th>Descripcion</th>
+<th>Valoracion</th>
+<th>Impacto</th>
+</tr>
+</thead>
+<tbody>
+<tr data-val="adversa"><td>P-001</td><td><span class="tag tag-doc">Documental</span></td><td>47 ordenes de transferencia firmadas por Navarro (2019-2022)</td><td><span style="color:var(--danger);font-weight:500">Adversa</span></td><td>Alto</td></tr>
+<tr data-val="favorable"><td>P-002</td><td><span class="tag tag-doc">Documental</span></td><td>Emails CEO Cortes instruyendo a Navarro sobre transferencias</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Critico</td></tr>
+<tr data-val="favorable"><td>P-003</td><td><span class="tag tag-doc">Documental</span></td><td>Contrato de licencias software con Lusitania Digital Lda.</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Alto</td></tr>
+<tr data-val="adversa"><td>P-004</td><td><span class="tag tag-pericial">Pericial</span></td><td>Informe AEAT: facturas sin sustento economico real</td><td><span style="color:var(--danger);font-weight:500">Adversa</span></td><td>Critico</td></tr>
+<tr data-val="favorable"><td>P-005</td><td><span class="tag tag-pericial">Pericial</span></td><td>Dictamen de parte: software efectivamente instalado y utilizado</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Critico</td></tr>
+<tr data-val="adversa"><td>P-006</td><td><span class="tag tag-test">Testifical</span></td><td>Declaracion de 3 empleados: Navarro tenia acceso a informes de auditoria</td><td><span style="color:var(--danger);font-weight:500">Adversa</span></td><td>Medio</td></tr>
+<tr data-val="favorable"><td>P-007</td><td><span class="tag tag-test">Testifical</span></td><td>Declaracion del auditor interno: alertas dirigidas exclusivamente al CEO</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Alto</td></tr>
+<tr data-val="neutral"><td>P-008</td><td><span class="tag tag-doc">Documental</span></td><td>Organigramas TechVerde: cadena de mando CEO-CFO</td><td><span style="color:var(--muted);font-weight:500">Neutral</span></td><td>Medio</td></tr>
+<tr data-val="favorable"><td>P-009</td><td><span class="tag tag-doc">Documental</span></td><td>Actas del Consejo: Navarro no participaba en decisiones estrategicas internacionales</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Alto</td></tr>
+<tr data-val="adversa"><td>P-010</td><td><span class="tag tag-doc">Documental</span></td><td>Extractos bancarios: 2,3M EUR transferidos a cuentas en Portugal y Luxemburgo</td><td><span style="color:var(--danger);font-weight:500">Adversa</span></td><td>Alto</td></tr>
+<tr data-val="favorable"><td>P-011</td><td><span class="tag tag-pericial">Pericial</span></td><td>Informe informatico: logs de uso del software licenciado (147.000 sesiones)</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Critico</td></tr>
+<tr data-val="favorable"><td>P-012</td><td><span class="tag tag-doc">Documental</span></td><td>Navarro no tiene participacion ni vinculacion con sociedades receptoras</td><td><span style="color:var(--success);font-weight:500">Favorable</span></td><td>Alto</td></tr>
+</tbody>
+</table>
+<div style="margin-top:12px;display:flex;gap:16px;font-size:13px;color:var(--muted)">
+<span>Total: 12 pruebas catalogadas</span>
+<span style="color:var(--success)">7 favorables</span>
+<span style="color:var(--danger)">4 adversas</span>
+<span>1 neutral</span>
+</div>
+</div>
+</div>
+
+<div class="grid-3">
+<div class="card">
+<h2 style="font-size:18px">Estado de la defensa</h2>
+<div style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Escritos presentados</span><span style="font-weight:500">3 / 5</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--success)"></div></div>
+</div>
+<div style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Prueba propuesta</span><span style="font-weight:500">8 / 12</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:67%;background:var(--gold)"></div></div>
+</div>
+<div style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Periciales completadas</span><span style="font-weight:500">1 / 2</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:50%;background:var(--warning)"></div></div>
+</div>
+<div style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Preparacion juicio</span><span style="font-weight:500">35%</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:35%;background:var(--info)"></div></div>
+</div>
+</div>
+
+<div class="card">
+<h2 style="font-size:18px">Resumen economico</h2>
+<div style="position:relative;height:200px;margin-top:8px">
+<canvas id="econChart"></canvas>
+</div>
+<div style="margin-top:12px;font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap">
+<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#0A1A2F;margin-right:4px"></span>Defraudacion imputada</span>
+<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#B09058;margin-right:4px"></span>RC solicitada</span>
+<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#059669;margin-right:4px"></span>Fianza depositada</span>
+</div>
+</div>
+
+<div class="card">
+<h2 style="font-size:18px">Escritos del caso</h2>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;border:1px solid var(--border)">
+<div style="width:32px;height:32px;border-radius:6px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:14px">1</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:500">Escrito de defensa</div><div style="font-size:11px;color:var(--muted)">30/05/2025 — Presentado</div></div>
+<span class="status-badge active" style="font-size:11px">OK</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;border:1px solid var(--border)">
+<div style="width:32px;height:32px;border-radius:6px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:14px">2</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:500">Alegaciones conformidad Cortes</div><div style="font-size:11px;color:var(--muted)">15/01/2026 — Presentado</div></div>
+<span class="status-badge active" style="font-size:11px">OK</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;border:1px solid var(--border)">
+<div style="width:32px;height:32px;border-radius:6px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:14px">3</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:500">Ampliacion prueba pericial</div><div style="font-size:11px;color:var(--muted)">10/04/2026 — Presentado</div></div>
+<span class="status-badge active" style="font-size:11px">OK</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;border:1px solid var(--gold)">
+<div style="width:32px;height:32px;border-radius:6px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;font-size:14px">4</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:500">Cuestiones previas</div><div style="font-size:11px;color:var(--muted)">En redaccion — Borrador v2</div></div>
+<span class="status-badge pending" style="font-size:11px">Draft</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;border:1px solid var(--border);opacity:0.5">
+<div style="width:32px;height:32px;border-radius:6px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:14px">5</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:500">Escrito de conclusiones definitivas</div><div style="font-size:11px;color:var(--muted)">Pendiente de juicio</div></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<footer>
+<div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy);margin-bottom:8px">Estrado <span style="color:var(--gold)">AI</span></div>
+Este es un caso ficticio con fines demostrativos. Ningun dato corresponde a personas o procedimientos reales.<br>
+<a href="/">Volver a estradoia.com</a>
+</footer>
+
+<div class="watermark">Estrado AI — Demo</div>
+
+<script>
+function filterTable(val){
+document.querySelectorAll('#evidenceTable tbody tr').forEach(r=>{
+r.style.display=(val==='all'||r.dataset.val===val)?'':'none'
+})
+document.querySelectorAll('.card-header button').forEach(b=>b.style.background='var(--card)')
+event.target.style.background=val==='all'?'var(--navy)':val==='favorable'?'#ECFDF5':'#FEF2F2'
+event.target.style.color=val==='all'?'#fff':val==='favorable'?'var(--success)':'var(--danger)'
+}
+
+new Chart(document.getElementById('riskChart'),{
+type:'radar',
+data:{
+labels:['Prueba documental','Prueba testifical','Prueba pericial','Prescripcion','Atenuantes','Conformidad CEO'],
+datasets:[{
+label:'Fortaleza defensa',
+data:[75,60,85,40,70,80],
+backgroundColor:'rgba(176,144,88,0.15)',
+borderColor:'#B09058',
+borderWidth:2,
+pointBackgroundColor:'#B09058'
+},{
+label:'Fortaleza acusacion',
+data:[80,55,60,20,30,25],
+backgroundColor:'rgba(220,38,38,0.1)',
+borderColor:'#DC2626',
+borderWidth:2,
+pointBackgroundColor:'#DC2626'
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+scales:{r:{beginAtZero:true,max:100,ticks:{display:false},grid:{color:'#E5E7EB'},pointLabels:{font:{size:11}}}},
+plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}}}
+}
+})
+
+new Chart(document.getElementById('econChart'),{
+type:'bar',
+data:{
+labels:['Imputado','RC','Fianza'],
+datasets:[{
+data:[2300000,2300000,100000],
+backgroundColor:['#0A1A2F','#B09058','#059669'],
+borderRadius:6
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+indexAxis:'y',
+scales:{x:{ticks:{callback:v=>(v/1e6).toFixed(1)+'M EUR'},grid:{color:'#E5E7EB'}},y:{grid:{display:false}}},
+plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(ctx.raw)}}}
+}
+})
+</script>
+</body>
+</html>
