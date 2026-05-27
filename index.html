@@ -165,6 +165,13 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
 .compare-col.us h3{color:var(--gold)}
 .compare-col p{font-size:14px;color:var(--steel);line-height:1.7}
 
+/* ─── PROCESO ─── */
+.proceso-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:1.5rem 0}
+.proceso-step{padding:1.25rem;background:var(--bone);border-radius:8px;position:relative}
+.proceso-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:600;color:var(--gold);margin-bottom:8px}
+.proceso-step h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:500;color:var(--navy);margin-bottom:6px}
+.proceso-step p{font-size:13px;color:var(--steel);line-height:1.7}
+
 /* ─── SERVICIOS ─── */
 .services{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:1.5rem 0}
 .service{padding:1.25rem 1.5rem;border:1px solid var(--pearl);border-radius:8px;transition:border-color 0.3s ease}
@@ -266,7 +273,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
 /* ─── RESPONSIVE ─── */
 @media(max-width:768px){
   .nav{padding:14px 20px}
-  .compare,.services,.comp-grid,.caso-grid,.planes,.roi-grid{grid-template-columns:1fr}
+  .compare,.services,.comp-grid,.caso-grid,.planes,.roi-grid,.proceso-grid{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(3,1fr);gap:16px}
   .seg-items{flex-direction:column;align-items:center;gap:12px}
   .hero-inner{padding:1.5rem}
@@ -298,7 +305,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
       <text x="190" y="30" font-family="'Cormorant Garamond',Georgia,serif" font-size="20" font-weight="300" letter-spacing="2" fill="#FFFFFF">AI</text>
     </svg>
   </div>
-  <a href="#cta" class="nav-cta">Reservar plaza</a>
+  <a href="#cta" class="nav-cta">Solicitar una llamada</a>
 </nav>
 
 <!-- HERO -->
@@ -316,48 +323,82 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
       </svg>
     </div>
     <h1>Un especialista en IA.<br><em>Dedicado a tu defensa.</em></h1>
-    <p class="sub">Mientras tu preparas la vista oral, yo organizo tu expediente, redacto el borrador y detecto lo que se le escapa al ojo humano. En 48 horas tienes tu primer entregable. Sin delegacion &mdash; todo pasa por mis manos antes de llegar a las tuyas.</p>
-    <a href="#cta" class="cta-btn">Ver que haria con tu expediente</a>
-    <p class="hero-note">Solo acepto <strong>8 casos simultaneos</strong>. Plazas limitadas este trimestre.</p>
+    <p class="sub">Organizo tu expediente, redacto borradores de escritos y detecto lo que se escapa al ojo humano. Todo procesado en local, sin que tus datos salgan de la maquina. Primer entregable en 48 horas.</p>
+    <a href="#cta" class="cta-btn">Solicitar una llamada</a>
+    <p class="hero-note">Solo acepto <strong>8 casos simultaneos</strong> para garantizar dedicacion real.</p>
   </div>
 </section>
+
+<!-- SOBRE MI -->
+<div class="bio">
+  <div class="bio-inner">
+    <div class="bio-monogram">
+      <svg viewBox="0 0 80 92" width="44" height="50">
+        <rect x="4" y="4" width="72" height="84" rx="4" fill="none" stroke="#0A1A2F" stroke-width="1.5"/>
+        <line x1="24" y1="24" x2="24" y2="68" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="24" x2="56" y2="24" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="46" x2="48" y2="46" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="68" x2="56" y2="68" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="56" cy="24" r="2.5" fill="#0A1A2F"/>
+      </svg>
+    </div>
+    <h3>Ren&eacute; Dechamps Otamendi</h3>
+    <p class="bio-title">Fundador de Estrado AI</p>
+    <p class="saga">20 a&ntilde;os construyendo empresas de datos e inteligencia artificial. Ahora aplico todo eso a la defensa penal.</p>
+    <p>Fund&eacute; OX2 en 2003 &mdash; la primera consultora de analitica digital en Espa&ntilde;a &mdash; y la vend&iacute; en 2008. Avinash Kaushik la incluyo en el top 10 mundial. Cofund&eacute; Mind Your Group con Gemma Mu&ntilde;oz (asesores: Avinash Kaushik, Jim Sterne, Bryan Eisenberg) y trabajamos con Repsol, L'Or&eacute;al, Zara y BBVA. Constru&iacute; el departamento de analytics de Ogilvy desde cero, dise&ntilde;&eacute; la arquitectura global de KPIs de BBVA, y entren&eacute; a equipos de ventas de Google (9,4/10 de satisfaccion).</p>
+    <p>Fund&eacute; NextStage Analytics en Boston &mdash; Gartner Cool Vendor 2010 por prediccion de g&eacute;nero y edad con 98% de precision. Profesor asociado en IE Business School e ISDI. 7 empresas creadas, 1 exit, 3 idiomas. Solvay Brussels School (Master e-Business), UCLouvain (RRII). Board member de I-COM Global.</p>
+    <p>Tercera generacion de una familia de juristas. Crec&iacute; entre escritos y sentencias. Desde Madrid, llevo cada caso personalmente.</p>
+  </div>
+</div>
 
 <!-- FILOSOFIA BOUTIQUE -->
 <div class="filosofia">
   <div class="filosofia-inner">
     <p class="section-label">Filosofia</p>
     <blockquote>"Un buen penalista no lleva cincuenta causas a la vez. Elige las que puede defender con la dedicacion que merecen. <strong>Yo hago exactamente lo mismo con la inteligencia artificial.</strong>"</blockquote>
-    <p style="font-size:14px;color:var(--slate);max-width:520px;margin:0 auto 2rem;line-height:1.7">Cuando descubras lo que ocurre al combinar un expediente bien organizado con inteligencia artificial especializada, tu forma de preparar una defensa cambia para siempre.</p>
+    <p style="font-size:14px;color:var(--slate);max-width:520px;margin:0 auto 2rem;line-height:1.7">Un expediente bien organizado, combinado con IA especializada, transforma la preparacion de una defensa.</p>
     <div class="stats">
       <div class="stat">
-        <div class="num">8</div>
-        <div class="label">casos simultaneos<br>maximo</div>
+        <div class="num">87K</div>
+        <div class="label">folios procesados<br>en una macrocausa</div>
       </div>
       <div class="stat">
-        <div class="num">4</div>
-        <div class="label">anos de experiencia<br>en IA aplicada</div>
+        <div class="num">340+</div>
+        <div class="label">sentencias analizadas<br>en 48 horas</div>
       </div>
       <div class="stat">
-        <div class="num">1</div>
-        <div class="label">persona dedicada<br>el fundador</div>
+        <div class="num">48h</div>
+        <div class="label">primer entregable<br>operativo</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- COMPARATIVA -->
+<!-- COMO TRABAJO -->
 <div class="section">
-  <p class="section-label">El problema</p>
-  <h2>La IA sin piloto es ruido.<br>Con piloto, es ventaja.</h2>
-  <p>Cualquiera puede abrir ChatGPT. La diferencia es saber que preguntarle, como estructurar el resultado, y que significa cada respuesta en el contexto de tu causa. Cada semana que pasa sin organizar tu expediente es una semana en la que tu contrario avanza.</p>
-  <div class="compare">
-    <div class="compare-col them">
-      <h3>IA por tu cuenta</h3>
-      <p>Acceso a un modelo de lenguaje. Tu tienes que aprender a usarlo, formular los prompts correctos, verificar las alucinaciones, y aplicar el resultado a tu expediente. Horas de prueba y error que no facturas a nadie. Y mientras tanto, el plazo sigue corriendo.</p>
+  <p class="section-label">Proceso</p>
+  <h2>C&oacute;mo trabajo con tu expediente</h2>
+  <p>Un proceso claro, sin sorpresas. Desde la primera llamada hasta el entregable operativo.</p>
+  <div class="proceso-grid">
+    <div class="proceso-step">
+      <div class="proceso-num">1</div>
+      <h3>Llamada inicial</h3>
+      <p>30 minutos para entender tu causa, tus plazos y qu&eacute; necesitas. Sin coste.</p>
     </div>
-    <div class="compare-col us">
-      <h3>Estrado AI</h3>
-      <p>Me das acceso a tu expediente. En 48-72 horas tienes un dashboard operativo, un analisis estructurado y los primeros borradores listos para tu revision. Tu corriges, ajustas y firmas. Yo me encargo del resto. Nota la diferencia cuando llegues a la vista oral con todo preparado.</p>
+    <div class="proceso-step">
+      <div class="proceso-num">2</div>
+      <h3>Recepci&oacute;n del expediente</h3>
+      <p>Me env&iacute;as los documentos por canal seguro. Todo se procesa en local &mdash; tus datos no salen de la m&aacute;quina dedicada a tu caso.</p>
+    </div>
+    <div class="proceso-step">
+      <div class="proceso-num">3</div>
+      <h3>Primer entregable en 48h</h3>
+      <p>Dashboard operativo, cronolog&iacute;a de hechos, mapa de actores y primeros borradores listos para tu revisi&oacute;n.</p>
+    </div>
+    <div class="proceso-step">
+      <div class="proceso-num">4</div>
+      <h3>Copilotaje continuo</h3>
+      <p>T&uacute; diriges la defensa. Yo mantengo el expediente organizado, redacto borradores y monitorizo plazos. Cada entregable pasa por mis manos antes de llegar a las tuyas.</p>
     </div>
   </div>
 </div>
@@ -368,7 +409,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
 <div class="section">
   <p class="section-label">El servicio</p>
   <h2>Que hago en tu caso</h2>
-  <p>Cada entregable pasa por mis manos. No hay algoritmo sin supervision ni borrador sin revision humana. La IA es mi herramienta. La responsabilidad es mia. Imagina tener todo esto funcionando en tu proximo expediente:</p>
+  <p>Cada entregable pasa por mis manos. No hay algoritmo sin supervision ni borrador sin revision humana. La IA es mi herramienta. La responsabilidad es mia.</p>
   <div class="services">
     <div class="service">
       <h3>Dashboard 360</h3>
@@ -391,12 +432,12 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
     </div>
     <div class="service">
       <h3>Simulador de interrogatorio</h3>
-      <p>Imagina llegar a la vista oral con cada pregunta del fiscal anticipada, cada trampa detectada y cada respuesta ensayada. Tu cliente entra en sala preparado. Sin sorpresas.</p>
+      <p>Cada pregunta del fiscal anticipada, cada trampa detectada, cada respuesta ensayada. Tu cliente entra en sala preparado. Sin sorpresas.</p>
       <a href="/demos/interrogatorio" class="demo-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>Ver ejemplo</a>
     </div>
     <div class="service">
       <h3>Monitor de plazos y prescripcion</h3>
-      <p>Un plazo olvidado no tiene precio. Un vicio de prescripcion no detectado puede costar anos a tu cliente. Control automatico por delito, alertas semaforo, vencimientos procesales. Ese terror, eliminado.</p>
+      <p>Control automatico de prescripcion por delito, alertas semaforo, vencimientos procesales. Ningun plazo olvidado, ningun vicio de prescripcion sin detectar.</p>
       <a href="/demos/plazos" class="demo-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>Ver ejemplo</a>
     </div>
   </div>
@@ -480,13 +521,18 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
 <div class="seguridad">
   <div class="seguridad-inner">
     <p class="section-label">Confidencialidad</p>
-    <h2>Tu expediente, mi compromiso</h2>
-    <p>Firmo un acuerdo de confidencialidad especifico para cada causa. Cada cliente trabaja sobre un ordenador dedicado exclusivamente a su expediente &mdash; sin compartir recursos con ningun otro caso. Tus datos no se comparten con terceros ni se usan para entrenar modelos. Es lo minimo que le exigirias a cualquier profesional que trabaje en tu equipo.</p>
+    <h2>Procesamiento local. Tus datos no salen de la m&aacute;quina.</h2>
+    <p>La defensa penal exige anonimidad total. Por eso trabajo exclusivamente con herramientas en local: modelos de IA que corren en el ordenador dedicado a tu caso, sin enviar datos a APIs en la nube, sin servidores externos, sin terceros. Tu expediente no pasa por OpenAI, Google ni ningun otro proveedor. Se queda en la maquina que esta en mi despacho, cifrada y bajo llave.</p>
+    <p style="margin-top:0.5rem">Firmo un acuerdo de confidencialidad especifico para cada causa. Es lo minimo que le exigirias a cualquier profesional que trabaje en tu equipo.</p>
     <div class="seg-items">
+      <div class="seg-item">Modelos de IA en local</div>
+      <div class="seg-item">Sin APIs en la nube</div>
       <div class="seg-item">Cifrado AES-256</div>
       <div class="seg-item">NDA por causa</div>
       <div class="seg-item">RGPD completo</div>
       <div class="seg-item">Ordenador dedicado por caso</div>
+      <div class="seg-item">Datos no compartidos con terceros</div>
+      <div class="seg-item">Sin entrenamiento de modelos</div>
     </div>
   </div>
 </div>
@@ -535,26 +581,6 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
   </div>
 </div>
 
-<!-- BIO -->
-<div class="bio">
-  <div class="bio-inner">
-    <div class="bio-monogram">
-      <svg viewBox="0 0 80 92" width="44" height="50">
-        <rect x="4" y="4" width="72" height="84" rx="4" fill="none" stroke="#0A1A2F" stroke-width="1.5"/>
-        <line x1="24" y1="24" x2="24" y2="68" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
-        <line x1="24" y1="24" x2="56" y2="24" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
-        <line x1="24" y1="46" x2="48" y2="46" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
-        <line x1="24" y1="68" x2="56" y2="68" stroke="#0A1A2F" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="56" cy="24" r="2.5" fill="#0A1A2F"/>
-      </svg>
-    </div>
-    <h3>Rene de Champs</h3>
-    <p class="bio-title">Fundador de Estrado AI</p>
-    <p class="saga">Tercera generacion de una familia de juristas &mdash; notarios, abogados, letrados. Creci entre escritos y sentencias antes de dedicar los ultimos cuatro anos a aplicar inteligencia artificial al derecho penal.</p>
-    <p>Conozco el derecho desde dentro. Entiendo sus tiempos, su lenguaje, su rigor. Y he aprendido que la IA solo funciona cuando la pilota alguien que comprende el terreno en el que opera. Desde Madrid, llevo cada caso personalmente: porque tu expediente merece el mismo nivel de atencion que tu le dedicas.</p>
-  </div>
-</div>
-
 <!-- FAQ -->
 <section class="faq" aria-label="Preguntas frecuentes">
   <p class="section-label">Preguntas frecuentes</p>
@@ -584,11 +610,11 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(-
 <!-- CTA FINAL -->
 <section class="cta-final" id="cta" aria-label="Solicitar acceso">
   <div class="cta-inner">
-    <p class="section-label">Acceso anticipado</p>
-    <h2>30 minutos. Tu expediente. Una ventaja que no sabias que tenias.</h2>
-    <p>Selecciono 10 despachos para el programa de acceso anticipado. Un mes completo de trabajo gratuito &mdash; es mi forma de demostrarte que esto funciona antes de pedirte nada. Me cuentas tu caso, y en 48 horas tienes tu primer dashboard operativo.</p>
-    <a href="mailto:contacto@estradoia.com?subject=Primera%20conversaci%C3%B3n%20%E2%80%94%20Estrado%20AI&body=Hola%20Ren%C3%A9%2C%0A%0ASoy%20%5Bnombre%5D%2C%20abogado%20penalista%20en%20%5Bdespacho%2Fciudad%5D.%0A%0AMe%20interesa%20una%20primera%20conversaci%C3%B3n%20sobre%20el%20servicio%20Estrado%20AI.%0A%0ATengo%20disponibilidad%20para%20hablar%20esta%20semana.%0A%0AUn%20saludo." class="cta-btn">Reservar mi plaza</a>
-    <p class="plazas">Programa de verano 2026: <strong>7</strong> de 10 plazas disponibles</p>
+    <p class="section-label">Primer paso</p>
+    <h2>30 minutos para entender tu caso. Sin coste. Sin compromiso.</h2>
+    <p>Hablamos de tu expediente, te cuento como trabajo y que resultados puedes esperar. Si tiene sentido, empezamos con un mes de trabajo gratuito. En 48 horas tienes tu primer entregable operativo.</p>
+    <a href="mailto:contacto@estradoia.com?subject=Primera%20conversaci%C3%B3n%20%E2%80%94%20Estrado%20AI&body=Hola%20Ren%C3%A9%2C%0A%0ASoy%20%5Bnombre%5D%2C%20abogado%20penalista%20en%20%5Bdespacho%2Fciudad%5D.%0A%0AMe%20interesa%20una%20primera%20conversaci%C3%B3n%20sobre%20el%20servicio%20Estrado%20AI.%0A%0ATengo%20disponibilidad%20para%20hablar%20esta%20semana.%0A%0AUn%20saludo." class="cta-btn">Solicitar una llamada</a>
+    <p class="plazas">Acepto un m&aacute;ximo de <strong>8</strong> casos simult&aacute;neos</p>
     <p class="fine">Si despues del mes gratuito no te convence, te quedas con todo el trabajo realizado. Sin facturas. Sin letra pequena.</p>
   </div>
 </section>
