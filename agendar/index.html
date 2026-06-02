@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agendar conversacion — Estrado AI</title>
 <meta name="description" content="Solicita una primera conversacion gratuita de 30 minutos para evaluar tu caso.">
+<!-- EST-SEO -->
+<link rel="canonical" href="https://estradoia.com/agendar/">
+<link rel="icon" href="/logo_icon_v2.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0A1A2F">
+<meta property="og:title" content="Agendar conversacion — Estrado AI">
+<meta property="og:description" content="Solicita una primera conversacion gratuita de 30 minutos para evaluar tu caso.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://estradoia.com/agendar/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Estrado AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Agendar conversacion — Estrado AI">
+<meta name="twitter:description" content="Solicita una primera conversacion gratuita de 30 minutos para evaluar tu caso.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
@@ -28,7 +41,9 @@
 .plazas-box .num{font-family:'Cormorant Garamond',Georgia,serif;font-size:42px;font-weight:600;color:var(--gold);line-height:1}
 .plazas-box .lab{font-size:13px;color:var(--steel);margin-top:6px}
 .guarantee{text-align:center;font-size:13px;color:var(--slate);font-style:italic;margin-top:1rem;line-height:1.6}
+#accessForm label{display:block;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:5px}#accessForm input,#accessForm select,#accessForm textarea{width:100%;padding:11px 13px;border:1px solid var(--pearl);border-radius:6px;font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:var(--navy)}#accessForm textarea{min-height:80px;resize:vertical}
 </style>
+<script src="/analytics.js" defer></script>
 </head>
 <body>
 
@@ -69,11 +84,26 @@
   </div>
 
   <!-- AQUI VA EL WIDGET DE CAL.COM -->
-  <div class="cal-embed" id="cal-widget">
-    <p class="placeholder">Widget de Cal.com</p>
-    <p>Aqui se integrara el calendario de reservas.<br>Mientras tanto, puedes escribirme directamente:</p>
-    <a href="mailto:contacto@estradoia.com?subject=Primera%20conversaci%C3%B3n%20%E2%80%94%20Estrado%20AI&body=Hola%20Ren%C3%A9%2C%0A%0ASoy%20%5Bnombre%5D%2C%20abogado%20penalista%20en%20%5Bdespacho%2Fciudad%5D.%0A%0AMe%20interesa%20una%20primera%20conversaci%C3%B3n%20sobre%20el%20servicio%20Estrado%20AI.%0A%0ATengo%20disponibilidad%20para%20hablar%20esta%20semana.%0A%0AUn%20saludo." class="cta-btn">Escribirme por email</a>
+  <form id="accessForm" action="https://formspree.io/f/your-form-id" method="POST" style="background:var(--bone);border-radius:8px;padding:2rem;margin-bottom:2rem;text-align:left">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+      <div><label>Nombre *</label><input name="nombre" type="text" required></div>
+      <div><label>Email *</label><input name="email" type="email" required></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+      <div><label>Despacho</label><input name="despacho" type="text"></div>
+      <div><label>Colegiado / ICAM</label><input name="colegiado" type="text"></div>
+    </div>
+    <div style="margin-bottom:14px"><label>Tipo de asunto</label><select name="tipo"><option value="">Selecciona...</option><option>Penal economico / white-collar</option><option>Macrocausa / multiples acusados</option><option>Otro asunto penal</option><option>Exploratorio, sin caso aun</option></select></div>
+    <div style="margin-bottom:14px"><label>Fase procesal</label><select name="fase"><option value="">Selecciona...</option><option>Instruccion (diligencias previas)</option><option>Fase intermedia</option><option>Juicio oral</option><option>Recurso</option><option>No estoy seguro</option></select></div>
+    <div style="margin-bottom:14px"><label>Cuentame brevemente (opcional)</label><textarea name="mensaje"></textarea></div>
+    <button type="submit" class="cta-btn" data-track="form_submit" style="width:100%;border:none;cursor:pointer">Solicitar acceso anticipado</button>
+    <p style="font-size:12px;color:var(--slate);margin-top:14px;line-height:1.6">Estrado AI es una herramienta, no un despacho; el letrado colegiado dirige, decide y firma. &iquest;Prefieres email? <a href="mailto:contacto@estradoia.com" style="color:var(--navy)">contacto@estradoia.com</a></p>
+  </form>
+  <div id="formOk" style="display:none;text-align:center;padding:2.5rem;background:var(--bone);border-radius:8px;margin-bottom:2rem">
+    <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:var(--navy);margin-bottom:8px">Gracias &mdash; recibido.</p>
+    <p style="font-size:14px;color:var(--steel)">Te respondo en un dia habil. Si es urgente: <a href="mailto:contacto@estradoia.com" style="color:var(--navy)">contacto@estradoia.com</a></p>
   </div>
+  <script>(function(){var f=document.getElementById('accessForm'),o=document.getElementById('formOk');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();if(window.murallaTrack)murallaTrack('form_submit',{});var a=f.getAttribute('action');if(a.indexOf('your-form-id')!==-1){f.style.display='none';o.style.display='block';return;}fetch(a,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}}).then(function(){f.style.display='none';o.style.display='block';}).catch(function(){location.href='mailto:contacto@estradoia.com';});});})();</script>
   <!-- Para activar Cal.com, sustituir el div anterior por:
   <script>
     (function(C,A,L){...})(window,"https://cal.com","estradoai/primera-conversacion");
