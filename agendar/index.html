@@ -43,7 +43,6 @@
 .guarantee{text-align:center;font-size:13px;color:var(--slate);font-style:italic;margin-top:1rem;line-height:1.6}
 #accessForm label{display:block;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:5px}#accessForm input,#accessForm select,#accessForm textarea{width:100%;padding:11px 13px;border:1px solid var(--pearl);border-radius:6px;font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:var(--navy)}#accessForm textarea{min-height:80px;resize:vertical}
 </style>
-<script src="/analytics.js" defer></script>
 </head>
 <body>
 
@@ -83,7 +82,6 @@
     </ul>
   </div>
 
-  <!-- AQUI VA EL WIDGET DE CAL.COM -->
   <form id="accessForm" action="https://formspree.io/f/your-form-id" method="POST" style="background:var(--bone);border-radius:8px;padding:2rem;margin-bottom:2rem;text-align:left">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
       <div><label>Nombre *</label><input name="nombre" type="text" required></div>
@@ -96,20 +94,14 @@
     <div style="margin-bottom:14px"><label>Tipo de asunto</label><select name="tipo"><option value="">Selecciona...</option><option>Penal economico / white-collar</option><option>Macrocausa / multiples acusados</option><option>Otro asunto penal</option><option>Exploratorio, sin caso aun</option></select></div>
     <div style="margin-bottom:14px"><label>Fase procesal</label><select name="fase"><option value="">Selecciona...</option><option>Instruccion (diligencias previas)</option><option>Fase intermedia</option><option>Juicio oral</option><option>Recurso</option><option>No estoy seguro</option></select></div>
     <div style="margin-bottom:14px"><label>Cuentame brevemente (opcional)</label><textarea name="mensaje"></textarea></div>
-    <button type="submit" class="cta-btn" data-track="form_submit" style="width:100%;border:none;cursor:pointer">Solicitar acceso anticipado</button>
+    <button type="submit" class="cta-btn" style="width:100%;border:none;cursor:pointer">Solicitar acceso anticipado</button>
     <p style="font-size:12px;color:var(--slate);margin-top:14px;line-height:1.6">Estrado AI es una herramienta, no un despacho; el letrado colegiado dirige, decide y firma. &iquest;Prefieres email? <a href="mailto:contacto@estradoia.com" style="color:var(--navy)">contacto@estradoia.com</a></p>
   </form>
   <div id="formOk" style="display:none;text-align:center;padding:2.5rem;background:var(--bone);border-radius:8px;margin-bottom:2rem">
     <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:var(--navy);margin-bottom:8px">Gracias &mdash; recibido.</p>
     <p style="font-size:14px;color:var(--steel)">Te respondo en un dia habil. Si es urgente: <a href="mailto:contacto@estradoia.com" style="color:var(--navy)">contacto@estradoia.com</a></p>
   </div>
-  <script>(function(){var f=document.getElementById('accessForm'),o=document.getElementById('formOk');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();if(window.murallaTrack)murallaTrack('form_submit',{});var a=f.getAttribute('action');if(a.indexOf('your-form-id')!==-1){f.style.display='none';o.style.display='block';return;}fetch(a,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}}).then(function(){f.style.display='none';o.style.display='block';}).catch(function(){location.href='mailto:contacto@estradoia.com';});});})();</script>
-  <!-- Para activar Cal.com, sustituir el div anterior por:
-  <script>
-    (function(C,A,L){...})(window,"https://cal.com","estradoai/primera-conversacion");
-  </script>
-  -->
-
+  <script>(function(){var f=document.getElementById('accessForm'),o=document.getElementById('formOk');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();var a=f.getAttribute('action');if(a.indexOf('your-form-id')!==-1){f.style.display='none';o.style.display='block';return;}fetch(a,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}}).then(function(){f.style.display='none';o.style.display='block';}).catch(function(){location.href='mailto:contacto@estradoia.com';});});})();</script>
   <div class="alt-contact">
     <p>Si prefieres contacto directo:</p>
     <a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a>
@@ -126,6 +118,7 @@
   <p><a href="mailto:contacto@estradoia.com">contacto@estradoia.com</a></p>
   <div class="footer-links"><a href="/privacidad">Politica de privacidad</a><a href="/aviso-legal">Aviso legal</a></div>
   <p class="personal">Una herramienta para tu defensa. El letrado dirige y firma.</p>
+  <p class="personal" style="margin-top:6px;font-size:12px;opacity:.85">Esta web no utiliza cookies.</p>
 </footer>
 
 </body>
